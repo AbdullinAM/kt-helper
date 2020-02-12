@@ -5,6 +5,11 @@ import kotlin.system.exitProcess
 
 class UnreachableException(message: String) : Exception(message)
 
+@Suppress("ControlFlowWithEmptyBody")
+inline fun assert(cond: Boolean, message: String) = if (!cond) exit<Unit>(message) else {}
+@Suppress("ControlFlowWithEmptyBody")
+inline fun assert(cond: Boolean, action: () -> Unit) = if (!cond) action() else {}
+
 inline fun <T> unreachable(message: String): T = fail(message)
 inline fun <T> unreachable(noinline lazyMessage: () -> Any) = fail<T>(lazyMessage)
 

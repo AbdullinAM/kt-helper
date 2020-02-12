@@ -7,7 +7,7 @@
     <artifactId>kt-helper</artifactId>
     <groupId>com.abdullin</groupId>
     <packaging>jar</packaging>
-    <version>0.0.1</version>
+    <version>0.0.1-1</version>
 
     <properties>
         <jvm.version>1.8</jvm.version>
@@ -20,9 +20,17 @@
         <kotlin.version>1.3.61</kotlin.version>
         <kotlin.code.style>official</kotlin.code.style>
         <junit.version>4.12</junit.version>
+
+        <slf4j.version>1.7.25</slf4j.version>
     </properties>
 
     <dependencies>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>${slf4j.version}</version>
+        </dependency>
+
         <dependency>
             <groupId>org.jetbrains.kotlin</groupId>
             <artifactId>kotlin-stdlib</artifactId>
