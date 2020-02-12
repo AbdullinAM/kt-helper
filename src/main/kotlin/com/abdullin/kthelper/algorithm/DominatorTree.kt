@@ -1,4 +1,4 @@
-package com.abdullin.kthelper.argorithm
+package com.abdullin.kthelper.algorithm
 
 import java.util.*
 import kotlin.math.min

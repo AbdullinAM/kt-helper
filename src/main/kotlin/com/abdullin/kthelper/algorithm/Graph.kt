@@ -1,7 +1,8 @@
-package com.abdullin.kthelper.argorithm
+package com.abdullin.kthelper.algorithm
 
 import com.abdullin.kthelper.KtException
-import java.util.*
+import com.abdullin.kthelper.collection.queueOf
+import com.abdullin.kthelper.collection.stackOf
 
 class NoTopologicalSortingException(msg: String) : KtException(msg)
 
@@ -26,14 +27,13 @@ interface Graph<T : Graph.Vertex<T>> {
 class GraphTraversal<T : Graph.Vertex<T>>(private val graph: Graph<T>) {
     private enum class Colour { WHITE, GREY, BLACK }
 
-    fun <R> dfs(action: (T) -> R): List<R> {
-        val node = graph.entry
+    fun <R> dfs(start: T, action: (T) -> R): List<R> {
         val search = mutableListOf<R>()
         val colours = mutableMapOf<T, Colour>()
-        val stack = ArrayDeque<T>()
-        stack.push(node)
+        val stack = stackOf<T>()
+        stack.push(start)
         while (stack.isNotEmpty()) {
-            val top = stack.pollLast()!!
+            val top = stack.pop()
             if (colours.getOrPut(top) { Colour.WHITE } == Colour.WHITE) {
                 colours[top] = Colour.BLACK
                 search.add(action(top))
@@ -43,36 +43,35 @@ class GraphTraversal<T : Graph.Vertex<T>>(private val graph: Graph<T>) {
         return search
     }
 
-    fun dfs(): List<T> = dfs { it }
+    fun dfs(start: T = graph.entry): List<T> = dfs(start) { it }
 
-    fun <R> bfs(action: (T) -> R): List<R> {
-        val node = graph.entry
+    fun <R> bfs(start: T, action: (T) -> R): List<R> {
         val search = mutableListOf<R>()
         val colours = mutableMapOf<T, Colour>()
-        val stack = ArrayDeque<T>()
-        stack.push(node)
-        while (stack.isNotEmpty()) {
-            val top = stack.poll()!!
+        val queue = queueOf<T>()
+        queue.add(start)
+        while (queue.isNotEmpty()) {
+            val top = queue.poll()
             if (colours.getOrPut(top) { Colour.WHITE } == Colour.WHITE) {
                 colours[top] = Colour.BLACK
                 search.add(action(top))
-                top.successors.filter { colours[it] != Colour.BLACK }.forEach { stack.push(it) }
+                top.successors.filter { colours[it] != Colour.BLACK }.forEach { queue.add(it) }
             }
         }
         return search
     }
 
-    fun bfs(): List<T> = bfs { it }
+    fun bfs(start: T = graph.entry): List<T> = bfs(start) { it }
 
-    fun <R> topologicalSort(action: (T) -> R): List<R> {
+    fun <R> topologicalSort(start: T, action: (T) -> R): List<R> {
         val order = arrayListOf<R>()
         val colors = hashMapOf<T, Colour>()
 
         fun dfs(node: T) {
-            val stack = ArrayDeque<Pair<T, Boolean>>()
+            val stack = stackOf<Pair<T, Boolean>>()
             stack.push(node to false)
             while (stack.isNotEmpty()) {
-                val (top, isPostprocessing) = stack.poll()
+                val (top, isPostprocessing) = stack.pop()
                 if (colors[top] == Colour.BLACK)
                     continue
 
@@ -93,11 +92,11 @@ class GraphTraversal<T : Graph.Vertex<T>>(private val graph: Graph<T>) {
             }
         }
 
-        dfs(graph.entry)
-        return order
+        dfs(start)
+        return order.reversed()
     }
 
-    fun topologicalSort(): List<T> = topologicalSort { it }
+    fun topologicalSort(start: T = graph.entry): List<T> = topologicalSort(start) { it }
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -125,7 +124,7 @@ class LoopDetector<T : Graph.Vertex<T>>(private val graph: Graph<T>) {
         val result = hashMapOf<T, MutableList<T>>()
         for ((header, end) in backEdges) {
             val body = arrayListOf(header)
-            val stack = ArrayDeque<T>()
+            val stack = stackOf<T>()
             stack.push(end)
             while (stack.isNotEmpty()) {
                 val top = stack.pop()

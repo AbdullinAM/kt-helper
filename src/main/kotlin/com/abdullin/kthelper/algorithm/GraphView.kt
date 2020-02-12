@@ -1,4 +1,4 @@
-package com.abdullin.kthelper.argorithm
+package com.abdullin.kthelper.algorithm
 
 import info.leadinglight.jdot.Edge
 import info.leadinglight.jdot.Graph
