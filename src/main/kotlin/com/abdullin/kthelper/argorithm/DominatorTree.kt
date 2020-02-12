@@ -3,7 +3,7 @@ package com.abdullin.kthelper.argorithm
 import java.util.*
 import kotlin.math.min
 
-class DominatorTreeNode<T : GraphNode<T>>(val value: T) : TreeNode {
+class DominatorTreeNode<T : Graph.Vertex<T>>(val value: T) : TreeNode {
     var idom: DominatorTreeNode<T>? = null
         internal set
     internal val dominates = hashSetOf<DominatorTreeNode<T>>()
@@ -18,7 +18,7 @@ class DominatorTreeNode<T : GraphNode<T>>(val value: T) : TreeNode {
     }
 }
 
-class DominatorTree<T : GraphNode<T>>
+class DominatorTree<T : Graph.Vertex<T>>
     : MutableMap<T, DominatorTreeNode<T>> by mutableMapOf<T, DominatorTreeNode<T>>(), Viewable {
     override val graphView: List<GraphView>
         get() {
@@ -44,7 +44,7 @@ class DominatorTree<T : GraphNode<T>>
         }
 }
 
-class DominatorTreeBuilder<T : GraphNode<T>>(private val graph: Graph<T>) {
+class DominatorTreeBuilder<T : Graph.Vertex<T>>(private val graph: Graph<T>) {
     private val tree = DominatorTree<T>()
 
     private var nodeCounter: Int = 0

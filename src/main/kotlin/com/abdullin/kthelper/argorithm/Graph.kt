@@ -5,14 +5,14 @@ import java.util.*
 
 class NoTopologicalSortingException(msg: String) : KtException(msg)
 
-interface GraphNode<out T : Any> {
-    val predecessors: Set<T>
-    val successors: Set<T>
-}
-
-interface Graph<T : GraphNode<T>> {
+interface Graph<T : Graph.Vertex<T>> {
     val entry: T
     val nodes: Set<T>
+
+    interface Vertex<out T : Vertex<T>> {
+        val predecessors: Set<T>
+        val successors: Set<T>
+    }
 
     fun findEntries(): Set<T> {
         val hasEntry = nodes.map { it to false }.toMap().toMutableMap()
@@ -23,7 +23,7 @@ interface Graph<T : GraphNode<T>> {
     }
 }
 
-class GraphTraversal<T : GraphNode<T>>(private val graph: Graph<T>) {
+class GraphTraversal<T : Graph.Vertex<T>>(private val graph: Graph<T>) {
     private enum class Colour { WHITE, GREY, BLACK }
 
     fun <R> dfs(action: (T) -> R): List<R> {
@@ -102,13 +102,13 @@ class GraphTraversal<T : GraphNode<T>>(private val graph: Graph<T>) {
 
 ///////////////////////////////////////////////////////////////////////////////
 
-fun <T : GraphNode<T>> Set<T>.asGraph(): Graph<T> = object : Graph<T> {
+fun <T : Graph.Vertex<T>> Set<T>.asGraph(): Graph<T> = object : Graph<T> {
     override val entry: T
         get() = this@asGraph.first()
     override val nodes = this@asGraph
 }
 
-class LoopDetector<T : GraphNode<T>>(private val graph: Graph<T>) {
+class LoopDetector<T : Graph.Vertex<T>>(private val graph: Graph<T>) {
     fun search(): Map<T, List<T>> {
         val tree = DominatorTreeBuilder(graph).build()
         val backEdges = arrayListOf<Pair<T, T>>()
