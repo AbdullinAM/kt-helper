@@ -1,14 +1,21 @@
 @file:Suppress("NOTHING_TO_INLINE")
 package com.abdullin.kthelper.util
 
+import com.abdullin.kthelper.KtException
 import kotlin.system.exitProcess
 
-class UnreachableException(message: String) : Exception(message)
+class UnreachableException(message: String) : KtException(message)
+class AssertionException(message: String) : KtException(message) {
+    constructor() : this("")
+}
 
 @Suppress("ControlFlowWithEmptyBody")
-inline fun assert(cond: Boolean, message: String) = if (!cond) exit<Unit>(message) else {}
+inline fun assert(cond: Boolean, message: String) = if (!cond) throw AssertionException(message) else {}
 @Suppress("ControlFlowWithEmptyBody")
-inline fun assert(cond: Boolean, action: () -> Unit) = if (!cond) action() else {}
+inline fun assert(cond: Boolean, action: () -> Unit) = if (!cond) {
+    action()
+    throw AssertionException()
+} else {}
 
 inline fun <T> unreachable(message: String): T = fail(message)
 inline fun <T> unreachable(noinline lazyMessage: () -> Any) = fail<T>(lazyMessage)

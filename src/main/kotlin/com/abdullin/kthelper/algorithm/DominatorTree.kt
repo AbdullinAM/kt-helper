@@ -1,5 +1,6 @@
 package com.abdullin.kthelper.algorithm
 
+import com.abdullin.kthelper.collection.stackOf
 import java.util.*
 import kotlin.math.min
 
@@ -104,7 +105,7 @@ class DominatorTreeBuilder<T : Graph.Vertex<T>>(private val graph: Graph<T>) {
     }
 
     private fun dfs(node: T) {
-        val stack = ArrayDeque<Pair<T, Int>>()
+        val stack = stackOf<Pair<T, Int>>()
         stack.push(node to -1)
 
         while (stack.isNotEmpty()) {
