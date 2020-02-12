@@ -25,3 +25,6 @@ hs_err_pid*
 # idea configs
 .idea/*
 *.iml
+
+# compile output
+target/*
