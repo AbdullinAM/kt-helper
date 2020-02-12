@@ -7,7 +7,7 @@
     <artifactId>kt-helper</artifactId>
     <groupId>com.abdullin</groupId>
     <packaging>jar</packaging>
-    <version>0.0.1-2</version>
+    <version>0.0.2</version>
 
     <properties>
         <jvm.version>1.8</jvm.version>
