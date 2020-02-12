@@ -74,7 +74,29 @@
                     </execution>
                 </executions>
             </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>3.1.0</version>
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
     </build>
+
+    <distributionManagement>
+        <repository>
+            <id>bintray-abdullin-maven</id>
+            <name>abdullin-maven</name>
+            <url>https://api.bintray.com/maven/abdullin/maven/kt-helper/;publish=1</url>
+        </repository>
+    </distributionManagement>
 
 </project>
