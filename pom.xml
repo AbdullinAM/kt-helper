@@ -22,14 +22,10 @@
         <junit.version>4.12</junit.version>
 
         <slf4j.version>1.7.25</slf4j.version>
+        <jdot.version>1.0</jdot.version>
     </properties>
 
     <dependencies>
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-api</artifactId>
-            <version>${slf4j.version}</version>
-        </dependency>
 
         <dependency>
             <groupId>org.jetbrains.kotlin</groupId>
@@ -53,6 +49,17 @@
             <artifactId>junit</artifactId>
             <version>${junit.version}</version>
             <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>${slf4j.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>info.leadinglight</groupId>
+            <artifactId>jdot</artifactId>
+            <version>${jdot.version}</version>
         </dependency>
     </dependencies>
 
