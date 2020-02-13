@@ -9,6 +9,19 @@ class AssertionException(message: String) : KtException(message) {
     constructor() : this("")
 }
 
+inline fun <T> asserted(condition: Boolean, action: () -> T): T {
+    assert(condition)
+    return action()
+}
+
+inline fun <T> asserted(condition: Boolean, message: String, action: () -> T): T {
+    assert(condition, message)
+    return action()
+}
+
+@Suppress("ControlFlowWithEmptyBody")
+inline fun assert(cond: Boolean) = if (!cond) throw AssertionException() else {}
+
 @Suppress("ControlFlowWithEmptyBody")
 inline fun assert(cond: Boolean, message: String) = if (!cond) throw AssertionException(
     message
