@@ -1,5 +1,6 @@
-package com.abdullin.kthelper.util
+package com.abdullin.kthelper
 
+import com.abdullin.kthelper.assert.unreachable
 import kotlin.reflect.KClass
 
 fun Boolean.toInt(): Int = if (this) 1 else 0

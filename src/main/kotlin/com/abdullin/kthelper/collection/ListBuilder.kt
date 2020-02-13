@@ -1,4 +1,4 @@
-package com.abdullin.kthelper.util
+package com.abdullin.kthelper.collection
 
 class ListBuilder<T> {
     val list = mutableListOf<T>()

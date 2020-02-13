@@ -1,5 +1,5 @@
 @file:Suppress("NOTHING_TO_INLINE")
-package com.abdullin.kthelper.util
+package com.abdullin.kthelper.assert
 
 import com.abdullin.kthelper.KtException
 import kotlin.system.exitProcess
@@ -10,7 +10,9 @@ class AssertionException(message: String) : KtException(message) {
 }
 
 @Suppress("ControlFlowWithEmptyBody")
-inline fun assert(cond: Boolean, message: String) = if (!cond) throw AssertionException(message) else {}
+inline fun assert(cond: Boolean, message: String) = if (!cond) throw AssertionException(
+    message
+) else {}
 @Suppress("ControlFlowWithEmptyBody")
 inline fun assert(cond: Boolean, action: () -> Unit) = if (!cond) {
     action()
@@ -18,7 +20,8 @@ inline fun assert(cond: Boolean, action: () -> Unit) = if (!cond) {
 } else {}
 
 inline fun <T> unreachable(message: String): T = fail(message)
-inline fun <T> unreachable(noinline lazyMessage: () -> Any) = fail<T>(lazyMessage)
+inline fun <T> unreachable(noinline lazyMessage: () -> Any) =
+    fail<T>(lazyMessage)
 
 inline fun exit(message: String) = exit<Unit>(message)
 inline fun exit(lazyMessage: () -> Any) = exit<Unit>(lazyMessage)

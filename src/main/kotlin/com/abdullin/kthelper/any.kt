@@ -1,4 +1,4 @@
-package com.abdullin.kthelper.util
+package com.abdullin.kthelper
 
 inline fun <T> T.runIf(cond: Boolean, block: T.() -> Unit) {
     if (cond) block()

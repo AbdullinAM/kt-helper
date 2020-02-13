@@ -1,4 +1,4 @@
-package com.abdullin.kthelper.util
+package com.abdullin.kthelper
 
 @Suppress("UNCHECKED_CAST")
 class Try<T> protected constructor(@PublishedApi internal val unsafeValue: Any?) {
@@ -10,7 +10,9 @@ class Try<T> protected constructor(@PublishedApi internal val unsafeValue: Any?)
 
     companion object {
         fun <T> just(value: T) = Try<T>(value)
-        fun <T> exception(exception: Throwable) = Try<T>(Failure(exception))
+        fun <T> exception(exception: Throwable) = Try<T>(
+            Failure(exception)
+        )
     }
 
     fun isFailure() = unsafeValue is Failure
