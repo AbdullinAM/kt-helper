@@ -3,6 +3,7 @@ package com.abdullin.kthelper.algorithm
 import com.abdullin.kthelper.KtException
 import com.abdullin.kthelper.collection.queueOf
 import com.abdullin.kthelper.collection.stackOf
+import java.util.*
 
 class NoTopologicalSortingException(msg: String) : KtException(msg)
 
@@ -68,10 +69,10 @@ class GraphTraversal<T : Graph.Vertex<T>>(private val graph: Graph<T>) {
         val colors = hashMapOf<T, Colour>()
 
         fun dfs(node: T) {
-            val stack = stackOf<Pair<T, Boolean>>()
+            val stack = ArrayDeque<Pair<T, Boolean>>()
             stack.push(node to false)
             while (stack.isNotEmpty()) {
-                val (top, isPostprocessing) = stack.pop()
+                val (top, isPostprocessing) = stack.poll()
                 if (colors[top] == Colour.BLACK)
                     continue
 

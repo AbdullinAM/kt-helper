@@ -96,7 +96,8 @@ class GraphTest : AbstractGraphTest() {
         assertEqualsAny(
             topologicalSort.map { it.name },
             listOf("A1", "A2", "A3", "B1", "B2", "B3"),
-            listOf("A1", "B1", "B2", "A2", "A2", "B3")
+            listOf("A1", "B1", "B2", "A2", "A2", "B3"),
+            listOf("A1", "A2", "B1", "A3", "B2", "B3")
         )
 
         topologicalSort = GraphTraversal(splittedGraph).topologicalSort()
