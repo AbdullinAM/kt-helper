@@ -7,7 +7,7 @@
     <artifactId>kt-helper</artifactId>
     <groupId>com.abdullin</groupId>
     <packaging>jar</packaging>
-    <version>0.0.5</version>
+    <version>0.0.6</version>
 
     <properties>
         <jvm.version>1.8</jvm.version>
@@ -17,7 +17,7 @@
         <maven.compiler.source>${jvm.version}</maven.compiler.source>
         <maven.compiler.target>${jvm.version}</maven.compiler.target>
 
-        <kotlin.version>1.3.61</kotlin.version>
+        <kotlin.version>1.3.70</kotlin.version>
         <kotlin.code.style>official</kotlin.code.style>
         <junit.version>4.12</junit.version>
 

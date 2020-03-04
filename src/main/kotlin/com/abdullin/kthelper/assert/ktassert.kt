@@ -10,24 +10,24 @@ class AssertionException(message: String) : KtException(message) {
 }
 
 inline fun <T> asserted(condition: Boolean, action: () -> T): T {
-    assert(condition)
+    ktassert(condition)
     return action()
 }
 
 inline fun <T> asserted(condition: Boolean, message: String, action: () -> T): T {
-    assert(condition, message)
+    ktassert(condition, message)
     return action()
 }
 
 @Suppress("ControlFlowWithEmptyBody")
-inline fun assert(cond: Boolean) = if (!cond) throw AssertionException() else {}
+inline fun ktassert(cond: Boolean) = if (!cond) throw AssertionException() else {}
 
 @Suppress("ControlFlowWithEmptyBody")
-inline fun assert(cond: Boolean, message: String) = if (!cond) throw AssertionException(
+inline fun ktassert(cond: Boolean, message: String) = if (!cond) throw AssertionException(
     message
 ) else {}
 @Suppress("ControlFlowWithEmptyBody")
-inline fun assert(cond: Boolean, action: () -> Unit) = if (!cond) {
+inline fun ktassert(cond: Boolean, action: () -> Unit) = if (!cond) {
     action()
     throw AssertionException()
 } else {}
