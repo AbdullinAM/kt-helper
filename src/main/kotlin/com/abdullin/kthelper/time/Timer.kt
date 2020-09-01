@@ -11,7 +11,7 @@ class Timer {
         private set
     val isFinished get() = !isStarted
 
-    val current = asserted(isStarted) { System.currentTimeMillis() - startTime }
+    val current get() = asserted(isStarted) { System.currentTimeMillis() - startTime }
 
     fun start() {
         ktassert(isFinished)
