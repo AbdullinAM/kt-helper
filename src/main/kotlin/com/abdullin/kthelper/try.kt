@@ -19,7 +19,7 @@ class Try<T> protected constructor(@PublishedApi internal val unsafeValue: Any?)
 
     val isFailure get() = unsafeValue is Failure
     val isSuccess get() = !isFailure
-    val exception get() = asserted(isFailure) { failure!!.exception }
+    val exception get() = asserted<Throwable>(isFailure) { failure!!.exception }
 
     fun getOrDefault(value: T) = when {
         isSuccess -> unsafeValue as T
@@ -45,13 +45,6 @@ class Try<T> protected constructor(@PublishedApi internal val unsafeValue: Any?)
         failure?.apply {
             action()
             throw exception
-        }
-        return unsafeValue as T
-    }
-
-    inline fun <Ex : Throwable> getOrThrow(action: Try<T>.() -> Ex): T {
-        failure?.apply {
-            throw this@Try.action()
         }
         return unsafeValue as T
     }
