@@ -13,7 +13,7 @@ import java.nio.file.Path
 interface Viewable {
     val graphView: List<GraphView>
 
-    fun view(name: String, dot: String, viewer: String) = Util.sh(arrayOf(viewer).plus("file://${toFile(name, dot)}"))
+    fun view(name: String, dot: String, viewer: String): String = Util.sh(arrayOf(viewer).plus("file://${toFile(name, dot)}"))
 
     fun Viewable.toFile(name: String, dot: String): Path {
         Graph.setDefaultCmd(dot)

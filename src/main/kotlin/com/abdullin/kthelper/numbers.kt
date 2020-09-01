@@ -5,6 +5,7 @@ import kotlin.reflect.KClass
 
 fun Boolean.toInt(): Int = if (this) 1 else 0
 fun Int.toBoolean(): Boolean = this > 0
+fun Number.toBoolean(): Boolean = toInt().toBoolean()
 
 fun Number.recast(type: KClass<*>): Any = when (type) {
     Byte::class -> toByte()
