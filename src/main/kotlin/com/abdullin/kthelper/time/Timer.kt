@@ -7,7 +7,7 @@ class Timer {
     private var startTime = System.currentTimeMillis()
     private var finishTime = System.currentTimeMillis()
 
-    var isStarted = false
+    var isStarted = true
         private set
     val isFinished get() = !isStarted
 
