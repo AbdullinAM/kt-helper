@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>kt-helper</artifactId>
-    <groupId>com.abdullin</groupId>
+    <groupId>org.jetbrains.research</groupId>
     <packaging>jar</packaging>
     <version>0.0.8</version>
 
@@ -107,9 +107,9 @@
 
     <distributionManagement>
         <repository>
-            <id>bintray-abdullin-maven</id>
-            <name>abdullin-maven</name>
-            <url>https://api.bintray.com/maven/abdullin/maven/kt-helper/;publish=1</url>
+            <id>github-abdullinam-maven-packages</id>
+            <name>AbdullinAM-maven-packages</name>
+            <url>https://maven.pkg.github.com/AbdullinAM/maven-packages</url>
         </repository>
     </distributionManagement>
 
