@@ -23,26 +23,28 @@ class DisjointSet<T : Any?>(private val children: MutableSet<Subset<T>> = mutabl
     fun find(element: Subset<T>) = element.getRoot()
     fun findUnsafe(element: Subset<T>?) = element?.getRoot()
 
+    private fun Subset<T>.merge(other: Subset<T>): Subset<T> = when {
+        this == other -> this
+        this.rank < other.rank -> {
+            this.parent = other
+            other
+        }
+        this.rank > other.rank -> {
+            other.parent = this
+            this
+        }
+        else -> {
+            other.parent = this
+            ++this.rank
+            this
+        }
+    }
+
     fun join(lhv: Subset<T>, rhv: Subset<T>): Subset<T> {
         val lhvRoot = find(lhv)
         val rhvRoot = find(rhv)
 
-        return when {
-            lhvRoot == rhvRoot -> lhvRoot
-            lhvRoot.rank < rhvRoot.rank -> {
-                lhvRoot.parent = rhvRoot
-                rhvRoot
-            }
-            lhvRoot.rank > rhvRoot.rank -> {
-                rhvRoot.parent = lhvRoot
-                lhvRoot
-            }
-            else -> {
-                rhvRoot.parent = lhvRoot
-                ++lhvRoot.rank
-                lhvRoot
-            }
-        }
+        return lhvRoot.merge(rhvRoot)
     }
 
     fun joinUnsafe(lhv: Subset<T>?, rhv: Subset<T>?): Subset<T>? {
@@ -52,22 +54,7 @@ class DisjointSet<T : Any?>(private val children: MutableSet<Subset<T>> = mutabl
         if (lhvRoot == null) return null
         if (rhvRoot == null) return null
 
-        return when {
-            lhvRoot == rhvRoot -> lhvRoot
-            lhvRoot.rank < rhvRoot.rank -> {
-                lhvRoot.parent = rhvRoot
-                rhvRoot
-            }
-            lhvRoot.rank > rhvRoot.rank -> {
-                rhvRoot.parent = lhvRoot
-                lhvRoot
-            }
-            else -> {
-                rhvRoot.parent = lhvRoot
-                ++lhvRoot.rank
-                lhvRoot
-            }
-        }
+        return lhvRoot.merge(rhvRoot)
     }
 
     fun emplace(element: T): Subset<T> {

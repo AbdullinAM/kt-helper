@@ -2,7 +2,7 @@ package org.jetbrains.research.kthelper.algorithm
 
 import org.jetbrains.research.kthelper.collection.stackOf
 
-class LoopDetector<T : Graph.Vertex<T>>(private val graph: Graph<T>) {
+class LoopDetector<T : PredecessorGraph.PredecessorVertex<T>>(private val graph: PredecessorGraph<T>) {
     fun search(): Map<T, List<T>> {
         val tree = DominatorTreeBuilder(graph).build()
         val backEdges = arrayListOf<Pair<T, T>>()

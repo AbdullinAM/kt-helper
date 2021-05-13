@@ -3,7 +3,7 @@ package org.jetbrains.research.kthelper
 import org.jetbrains.research.kthelper.assert.asserted
 
 @Suppress("UNCHECKED_CAST")
-class Try<T> internal constructor(@PublishedApi internal val unsafe: Any?) {
+class Try<T> internal constructor(val unsafe: Any?) {
     @PublishedApi internal val failure: Failure? get() = unsafe as? Failure
 
     @PublishedApi internal data class Failure(val exception: Throwable)
@@ -34,11 +34,13 @@ class Try<T> internal constructor(@PublishedApi internal val unsafe: Any?) {
         else -> null
     }
 
+    @Deprecated(message = "")
     fun getOrThrow(): T {
         failure?.apply { throw exception }
         return unsafe as T
     }
 
+    @Deprecated(message = "")
     inline fun getOrThrow(action: () -> Unit): T {
         failure?.apply {
             action()

@@ -1,9 +1,10 @@
 package org.jetbrains.research.kthelper.algorithm.impl
 
 import org.jetbrains.research.kthelper.algorithm.Graph
+import org.jetbrains.research.kthelper.algorithm.PredecessorGraph
 
 data class VertexImpl(val name: String) :
-    Graph.Vertex<VertexImpl> {
+    PredecessorGraph.PredecessorVertex<VertexImpl> {
     internal val mutablePredecessors = linkedSetOf<VertexImpl>()
     internal val mutableSuccessors = linkedSetOf<VertexImpl>()
 
@@ -15,9 +16,9 @@ data class VertexImpl(val name: String) :
 }
 
 class GraphImpl(vararg elements: String) :
-    Graph<VertexImpl> {
+    PredecessorGraph<VertexImpl> {
     private val mutableNodes = linkedSetOf<VertexImpl>()
-    val map = mutableMapOf<String, VertexImpl>()
+    private val map = mutableMapOf<String, VertexImpl>()
 
     init {
         for (element in elements) {

@@ -2,7 +2,9 @@ package org.jetbrains.research.kthelper.time
 
 import org.jetbrains.research.kthelper.assert.asserted
 import org.jetbrains.research.kthelper.assert.ktassert
+import kotlin.system.measureTimeMillis
 
+@Deprecated("use builtin Kotlin methods")
 class Timer {
     private var startTime = System.currentTimeMillis()
     private var finishTime = System.currentTimeMillis()
@@ -27,14 +29,13 @@ class Timer {
     }
 }
 
-fun timed(action: () -> Unit): Long {
-    val timer = Timer()
-    action()
-    return timer.stop()
-}
+@Deprecated("use builtin Kotlin methods", replaceWith = ReplaceWith("measureTimeMillis", "kotlin.system.measureTimeMillis"))
+fun timed(action: () -> Unit): Long = measureTimeMillis(action)
 
-fun <T> timed(action: () -> T): Pair<Long, T> {
-    val timer = Timer()
-    val result = action()
-    return timer.stop() to result
+fun <T> measureTimeMillis(action: () -> T): Pair<Long, T> {
+    var res: T
+    val time = measureTimeMillis {
+        res = action()
+    }
+    return time to res
 }
