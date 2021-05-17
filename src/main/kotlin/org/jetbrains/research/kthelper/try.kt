@@ -34,13 +34,11 @@ class Try<T> internal constructor(val unsafe: Any?) {
         else -> null
     }
 
-    @Deprecated(message = "")
     fun getOrThrow(): T {
         failure?.apply { throw exception }
         return unsafe as T
     }
 
-    @Deprecated(message = "")
     inline fun getOrThrow(action: () -> Unit): T {
         failure?.apply {
             action()
