@@ -29,7 +29,10 @@ class Timer {
     }
 }
 
-@Deprecated("use builtin Kotlin methods", replaceWith = ReplaceWith("measureTimeMillis", "kotlin.system.measureTimeMillis"))
+@Deprecated(
+    message = "use builtin Kotlin methods",
+    replaceWith = ReplaceWith("measureTimeMillis(block = action)", "kotlin.system.measureTimeMillis")
+)
 fun timed(action: () -> Unit): Long = measureTimeMillis(action)
 
 fun <T> measureTimeMillis(action: () -> T): Pair<Long, T> {
