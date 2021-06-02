@@ -34,15 +34,12 @@ class Try<T> internal constructor(val unsafe: Any?) {
         else -> null
     }
 
-    fun getOrThrow(): T {
-        failure?.apply { throw exception }
-        return unsafe as T
-    }
+    fun getOrThrow(): T = getOrThrow { this }
 
-    inline fun getOrThrow(action: () -> Unit): T {
+    inline fun getOrThrow(action: Throwable.() -> Throwable): T {
         failure?.apply {
-            action()
-            throw exception
+            val throwable = exception.action()
+            throw throwable
         }
         return unsafe as T
     }
