@@ -7,7 +7,7 @@
     <artifactId>kt-helper</artifactId>
     <groupId>org.jetbrains.research</groupId>
     <packaging>jar</packaging>
-    <version>0.0.11</version>
+    <version>0.0.12</version>
 
     <properties>
         <jvm.version>1.8</jvm.version>
@@ -17,7 +17,7 @@
         <maven.compiler.source>${jvm.version}</maven.compiler.source>
         <maven.compiler.target>${jvm.version}</maven.compiler.target>
 
-        <kotlin.version>1.5.0</kotlin.version>
+        <kotlin.version>1.5.21</kotlin.version>
         <kotlin.code.style>official</kotlin.code.style>
         <junit.version>4.13.1</junit.version>
 
@@ -109,7 +109,7 @@
         <repository>
             <id>github-vorpal-research-kotlin-maven</id>
             <name>vorpal-research-kotlin-maven</name>
-            <url>http://maven.vorpal-research.science/publish</url>
+            <url>https://maven.pkg.github.com/vorpal-research/kotlin-maven</url>
         </repository>
     </distributionManagement>
 
