@@ -1,7 +1,7 @@
 package org.jetbrains.research.kthelper.collection
 
-abstract class MutableBuilder<T> : MutableCollection<T> {
-    abstract val inner: MutableCollection<T>
+interface MutableBuilder<T> : MutableCollection<T> {
+    val inner: MutableCollection<T>
 
     operator fun T.unaryPlus() {
         inner += this
@@ -12,8 +12,8 @@ abstract class MutableBuilder<T> : MutableCollection<T> {
     }
 }
 
-class ListBuilder<T>(override val inner: MutableList<T> = mutableListOf<T>()) : MutableBuilder<T>(), MutableList<T> by inner
-class SetBuilder<T>(override val inner: MutableSet<T> = mutableSetOf<T>()) : MutableBuilder<T>(), MutableSet<T> by inner
+open class ListBuilder<T>(override val inner: MutableList<T> = mutableListOf<T>()) : MutableBuilder<T>, MutableList<T> by inner
+open class SetBuilder<T>(override val inner: MutableSet<T> = mutableSetOf<T>()) : MutableBuilder<T>, MutableSet<T> by inner
 
 fun <T> buildList(init: MutableBuilder<T>.() -> Unit): List<T> {
     val builder = ListBuilder<T>()
