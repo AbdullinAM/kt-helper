@@ -57,7 +57,7 @@ class DisjointSet<T : Any>(private val children: MutableSet<Subset<T>> = mutable
         return lhvRoot.merge(rhvRoot)
     }
 
-    fun emplace(element: T): Subset<T> {
+    fun emplace(element: T?): Subset<T> {
         val wrapped = Subset(element)
         add(wrapped)
         return wrapped
