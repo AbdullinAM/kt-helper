@@ -1,6 +1,6 @@
 package org.jetbrains.research.kthelper.collection
 
-class Subset<T : Any?>(val data: T) {
+class Subset<T : Any>(val data: T?) {
     var parent = this
         internal set
     var rank = 0
@@ -19,7 +19,7 @@ class Subset<T : Any?>(val data: T) {
     override fun toString() = "Subset $data"
 }
 
-class DisjointSet<T : Any?>(private val children: MutableSet<Subset<T>> = mutableSetOf()) : MutableSet<Subset<T>> by children {
+class DisjointSet<T : Any>(private val children: MutableSet<Subset<T>> = mutableSetOf()) : MutableSet<Subset<T>> by children {
     fun find(element: Subset<T>) = element.getRoot()
     fun findUnsafe(element: Subset<T>?) = element?.getRoot()
 
@@ -57,7 +57,7 @@ class DisjointSet<T : Any?>(private val children: MutableSet<Subset<T>> = mutabl
         return lhvRoot.merge(rhvRoot)
     }
 
-    fun emplace(element: T): Subset<T> {
+    fun emplace(element: T?): Subset<T> {
         val wrapped = Subset(element)
         add(wrapped)
         return wrapped

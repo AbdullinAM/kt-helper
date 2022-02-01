@@ -26,6 +26,8 @@ interface Viewable {
         }.toTypedArray())
 
         graph.setBgColor(Color.X11.transparent)
+        graph.setFontSize(10.0)
+        graph.setFontName("Fira Mono")
 
         for (node in graphView) {
             for ((successor, label) in node.successors) {
