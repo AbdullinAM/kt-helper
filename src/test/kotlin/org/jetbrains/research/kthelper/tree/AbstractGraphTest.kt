@@ -1,7 +1,7 @@
-package org.jetbrains.research.kthelper.algorithm
+package org.jetbrains.research.kthelper.tree
 
-import org.jetbrains.research.kthelper.algorithm.impl.GraphImpl
-import kotlin.test.*
+import org.jetbrains.research.kthelper.tree.impl.GraphImpl
+import kotlin.test.BeforeTest
 
 abstract class AbstractGraphTest {
     lateinit var simpleGraph: GraphImpl

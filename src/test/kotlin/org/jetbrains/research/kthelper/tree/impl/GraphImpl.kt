@@ -1,7 +1,6 @@
-package org.jetbrains.research.kthelper.algorithm.impl
+package org.jetbrains.research.kthelper.tree.impl
 
-import org.jetbrains.research.kthelper.algorithm.Graph
-import org.jetbrains.research.kthelper.algorithm.PredecessorGraph
+import org.jetbrains.research.kthelper.graph.PredecessorGraph
 
 data class VertexImpl(val name: String) :
     PredecessorGraph.PredecessorVertex<VertexImpl> {

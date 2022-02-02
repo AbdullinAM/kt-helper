@@ -1,4 +1,4 @@
-package org.jetbrains.research.kthelper.algorithm
+package org.jetbrains.research.kthelper.graph
 
 interface Graph<T : Graph.Vertex<T>> {
     val entry: T

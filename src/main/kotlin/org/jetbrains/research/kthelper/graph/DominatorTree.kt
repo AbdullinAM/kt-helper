@@ -1,7 +1,7 @@
-package org.jetbrains.research.kthelper.algorithm
+package org.jetbrains.research.kthelper.graph
 
 import org.jetbrains.research.kthelper.collection.stackOf
-import java.util.*
+import org.jetbrains.research.kthelper.tree.TreeNode
 import kotlin.math.min
 
 class DominatorTreeNode<T : Graph.Vertex<T>>(val value: T) : TreeNode {

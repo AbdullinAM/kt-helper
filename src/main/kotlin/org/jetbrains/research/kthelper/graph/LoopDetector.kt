@@ -1,4 +1,4 @@
-package org.jetbrains.research.kthelper.algorithm
+package org.jetbrains.research.kthelper.graph
 
 import org.jetbrains.research.kthelper.collection.stackOf
 
