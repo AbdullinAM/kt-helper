@@ -1,6 +1,9 @@
-package org.jetbrains.research.kthelper.algorithm
+package org.jetbrains.research.kthelper.tree
 
 import org.jetbrains.research.kthelper.assertEqualsAny
+import org.jetbrains.research.kthelper.graph.GraphTraversal
+import org.jetbrains.research.kthelper.graph.LoopDetector
+import org.jetbrains.research.kthelper.graph.NoTopologicalSortingException
 import kotlin.test.*
 
 class GraphTest : AbstractGraphTest() {

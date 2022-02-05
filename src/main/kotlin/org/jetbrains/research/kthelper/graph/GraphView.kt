@@ -1,4 +1,4 @@
-package org.jetbrains.research.kthelper.algorithm
+package org.jetbrains.research.kthelper.graph
 
 import info.leadinglight.jdot.Edge
 import info.leadinglight.jdot.Graph
@@ -26,10 +26,14 @@ interface Viewable {
         }.toTypedArray())
 
         graph.setBgColor(Color.X11.transparent)
+        graph.setFontSize(10.0)
+        graph.setFontName("Fira Mono")
 
         for (node in graphView) {
-            for (successor in node.successors) {
-                graph.addEdge(Edge(node.name, successor.name))
+            for ((successor, label) in node.successors) {
+                graph.addEdge(Edge(node.name, successor.name).also {
+                    it.setLabel(label)
+                })
             }
         }
         val file = graph.dot2file("svg")
@@ -44,10 +48,10 @@ data class GraphView(
     val name: String,
     val label: String
 ) {
-    val successors: List<GraphView> get() = mutableSuccessors
-    private val mutableSuccessors = mutableListOf<GraphView>()
+    val successors: List<Pair<GraphView, String>> get() = mutableSuccessors
+    private val mutableSuccessors = mutableListOf<Pair<GraphView, String>>()
 
-    fun addSuccessor(successor: GraphView) {
-        mutableSuccessors += successor
+    fun addSuccessor(successor: GraphView, label: String = "") {
+        mutableSuccessors += successor to label
     }
 }
