@@ -1,9 +1,9 @@
-package org.jetbrains.research.kthelper.algorithm
+package org.jetbrains.research.kthelper.graph
 
 import org.jetbrains.research.kthelper.KtException
 import org.jetbrains.research.kthelper.collection.queueOf
 import org.jetbrains.research.kthelper.collection.stackOf
-import java.util.ArrayDeque
+import java.util.*
 
 class NoTopologicalSortingException(msg: String) : KtException(msg)
 

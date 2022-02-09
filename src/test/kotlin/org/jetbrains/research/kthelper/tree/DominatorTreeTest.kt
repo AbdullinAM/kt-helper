@@ -1,7 +1,10 @@
-package org.jetbrains.research.kthelper.algorithm
+package org.jetbrains.research.kthelper.tree
 
+import org.jetbrains.research.kthelper.graph.DominatorTreeBuilder
 import org.junit.Test
-import kotlin.test.*
+import kotlin.test.assertEquals
+import kotlin.test.assertNull
+import kotlin.test.assertTrue
 
 class DominatorTreeTest : AbstractGraphTest() {
 

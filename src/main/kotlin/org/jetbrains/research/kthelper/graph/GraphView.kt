@@ -1,4 +1,4 @@
-package org.jetbrains.research.kthelper.algorithm
+package org.jetbrains.research.kthelper.graph
 
 import info.leadinglight.jdot.Edge
 import info.leadinglight.jdot.Graph

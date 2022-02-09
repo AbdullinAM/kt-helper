@@ -1,10 +1,10 @@
-package org.jetbrains.research.kthelper.algorithm
+package org.jetbrains.research.kthelper.graph
 
 import org.jetbrains.research.kthelper.collection.stackOf
-import java.util.*
+import org.jetbrains.research.kthelper.tree.Tree
 import kotlin.math.min
 
-class DominatorTreeNode<T : Graph.Vertex<T>>(val value: T) : TreeNode {
+class DominatorTreeNode<T : Graph.Vertex<T>>(val value: T) : Tree.TreeNode<DominatorTreeNode<T>> {
     var idom: DominatorTreeNode<T>? = null
         internal set
     internal val dominates = hashSetOf<DominatorTreeNode<T>>()
