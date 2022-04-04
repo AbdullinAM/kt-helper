@@ -7,15 +7,34 @@ import kotlin.math.min
 class DominatorTreeNode<T : Graph.Vertex<T>>(val value: T) : Tree.TreeNode<DominatorTreeNode<T>> {
     var idom: DominatorTreeNode<T>? = null
         internal set
-    internal val dominates = hashSetOf<DominatorTreeNode<T>>()
+    private val dominates = hashSetOf<DominatorTreeNode<T>>()
+    private val dominationCache = hashSetOf<T>()
 
     override val children: Set<DominatorTreeNode<T>>
         get() = dominates
     override val parent get() = idom
 
-    fun dominates(node: T): Boolean = when {
-        dominates.any { it.value == node } -> true
-        else -> dominates.any { it.dominates(node) }
+    fun dominates(node: T): Boolean = when (node) {
+        in dominationCache -> true
+        else -> {
+            val res = dominates.any { it.dominates(node) }
+            if (res) dominationCache.add(node)
+            res
+        }
+    }
+
+    internal fun addDominee(node: DominatorTreeNode<T>) {
+        dominates += node
+        dominationCache += node.value
+    }
+
+    override fun hashCode(): Int = value.hashCode()
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is DominatorTreeNode<*>) return false
+
+        if (value != other.value) return false
+        return true
     }
 }
 
@@ -158,7 +177,7 @@ class DominatorTreeBuilder<T : Graph.Vertex<T>>(private val graph: Graph<T>) {
             val current = reverseMapping[it]!!
             if (idom != -1) {
                 val dominator = reverseMapping[idom]!!
-                tree.getValue(dominator).dominates.add(tree.getValue(current))
+                tree.getValue(dominator).addDominee(tree.getValue(current))
                 tree.getValue(current).idom = tree.getValue(dominator)
             }
         }
