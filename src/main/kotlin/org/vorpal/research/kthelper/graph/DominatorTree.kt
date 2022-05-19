@@ -1,5 +1,6 @@
 package org.vorpal.research.kthelper.graph
 
+import org.vorpal.research.kthelper.collection.queueOf
 import org.vorpal.research.kthelper.collection.stackOf
 import org.vorpal.research.kthelper.tree.Tree
 import kotlin.math.min
@@ -14,13 +15,14 @@ class DominatorTreeNode<T : Graph.Vertex<T>>(val value: T) : Tree.TreeNode<Domin
         get() = dominates
     override val parent get() = idom
 
-    fun dominates(node: T): Boolean = when (node) {
-        in dominationCache -> true
-        else -> {
-            val res = dominates.any { it.dominates(node) }
-            if (res) dominationCache.add(node)
-            res
+    fun dominates(node: T): Boolean {
+        val queue = queueOf(this)
+        while (queue.isNotEmpty()) {
+            val current = queue.poll()
+            if (node in current.dominationCache) return true
+            queue.addAll(current.dominates)
         }
+        return false
     }
 
     internal fun addDomineer(node: DominatorTreeNode<T>) {
