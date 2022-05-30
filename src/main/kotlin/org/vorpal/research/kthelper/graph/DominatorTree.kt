@@ -99,6 +99,43 @@ class DominatorTreeBuilder<T : Graph.Vertex<T>>(private val graph: Graph<T>) {
         dsu[v] = u
     }
 
+    private fun nonRecursiveFind(u: Int, x: Int = 0): Int {
+        val stack = stackOf<Pair<Int, Int>>()
+        var currentV: Int
+        // search til we reach the bottom u
+        run {
+            var currentU = u
+            var currentX = x
+            while (true) {
+                if (currentU < 0) {
+                    currentV = currentU
+                    break
+                }
+                if (currentU == dsu[currentU]) {
+                    currentV = if (currentX != 0) -1 else currentU
+                    break
+                }
+                stack.push(currentU to currentX)
+                currentU = dsu[currentU]
+                currentX++
+            }
+        }
+
+        // return back and recompute everything for the U's
+        while (stack.isNotEmpty()) {
+            val (currentU, currentX) = stack.pop()
+            if (currentV < 0) {
+                currentV = currentU
+                continue
+            }
+            if (sdom[labels[dsu[currentU]]] < sdom[labels[currentU]]) labels[currentU] = labels[dsu[currentU]]
+            dsu[currentU] = currentV
+            currentV = if (currentX != 0) currentV else labels[currentU]
+        }
+        return currentV
+    }
+
+    // correct recursive implementation (which fail with stack overflow on big graphs)
     private fun find(u: Int, x: Int = 0): Int {
         if (u < 0) return u
         if (u == dsu[u]) return if (x != 0) -1 else u
@@ -162,11 +199,11 @@ class DominatorTreeBuilder<T : Graph.Vertex<T>>(private val graph: Graph<T>) {
         val n = dfsTree.size
         for (i in n - 1 downTo 0) {
             for (j in reverseGraph[i]) {
-                sdom[i] = min(sdom[i], sdom[find(j)])
+                sdom[i] = min(sdom[i], sdom[nonRecursiveFind(j)])
             }
             if (i > 0) bucket[sdom[i]].add(i)
             for (j in bucket[i]) {
-                val v = find(j)
+                val v = nonRecursiveFind(j)
                 if (sdom[v] == sdom[j]) dom[j] = sdom[j]
                 else dom[j] = v
             }
