@@ -5,7 +5,7 @@ import org.vorpal.research.kthelper.collection.queueOf
 import org.vorpal.research.kthelper.collection.stackOf
 import java.util.*
 
-class NoTopologicalSortingException(msg: String) : org.vorpal.research.kthelper.KtException(msg)
+class NoTopologicalSortingException(msg: String) : KtException(msg)
 
 class GraphTraversal<T : Graph.Vertex<T>>(private val graph: Graph<T>) {
     private enum class Colour { WHITE, GREY, BLACK }

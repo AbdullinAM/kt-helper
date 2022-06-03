@@ -8,10 +8,10 @@ class LoopDetector<T : PredecessorGraph.PredecessorVertex<T>>(private val graph:
         val backEdges = arrayListOf<Pair<T, T>>()
 
         for ((current, _) in tree) {
-            for (succ in current.successors) {
-                val succTreeNode = tree.getValue(succ)
-                if (succTreeNode.dominates(current)) {
-                    backEdges.add(succ to current)
+            for (successor in current.successors) {
+                val successorTreeNode = tree.getValue(successor)
+                if (successorTreeNode.dominates(current)) {
+                    backEdges.add(successor to current)
                 }
             }
         }

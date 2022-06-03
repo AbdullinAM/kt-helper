@@ -99,7 +99,7 @@ class DominatorTreeBuilder<T : Graph.Vertex<T>>(private val graph: Graph<T>) {
         dsu[v] = u
     }
 
-    private fun nonRecursiveFind(u: Int, x: Int = 0): Int {
+    private fun find(u: Int, x: Int = 0): Int {
         val stack = stackOf<Pair<Int, Int>>()
         var currentV: Int
         // search til we reach the bottom u
@@ -136,17 +136,17 @@ class DominatorTreeBuilder<T : Graph.Vertex<T>>(private val graph: Graph<T>) {
     }
 
     // correct recursive implementation (which fail with stack overflow on big graphs)
-    private fun find(u: Int, x: Int = 0): Int {
+    private fun findRecursive(u: Int, x: Int = 0): Int {
         if (u < 0) return u
         if (u == dsu[u]) return if (x != 0) -1 else u
-        val v = find(dsu[u], x + 1)
+        val v = findRecursive(dsu[u], x + 1)
         if (v < 0) return u
         if (sdom[labels[dsu[u]]] < sdom[labels[u]]) labels[u] = labels[dsu[u]]
         dsu[u] = v
         return if (x != 0) v else labels[u]
     }
 
-    private fun rdfs(node: T) {
+    private fun dfsRecursive(node: T) {
         dfsTree[node] = nodeCounter
         reverseMapping[nodeCounter] = node
         labels[nodeCounter] = nodeCounter
@@ -155,7 +155,7 @@ class DominatorTreeBuilder<T : Graph.Vertex<T>>(private val graph: Graph<T>) {
         nodeCounter++
         for (it in node.successors) {
             if (dfsTree.getValue(it) == -1) {
-                rdfs(it)
+                dfsRecursive(it)
                 parents[dfsTree.getValue(it)] = dfsTree.getValue(node)
             }
             reverseGraph[dfsTree.getValue(it)].add(dfsTree.getValue(node))
@@ -199,11 +199,11 @@ class DominatorTreeBuilder<T : Graph.Vertex<T>>(private val graph: Graph<T>) {
         val n = dfsTree.size
         for (i in n - 1 downTo 0) {
             for (j in reverseGraph[i]) {
-                sdom[i] = min(sdom[i], sdom[nonRecursiveFind(j)])
+                sdom[i] = min(sdom[i], sdom[find(j)])
             }
             if (i > 0) bucket[sdom[i]].add(i)
             for (j in bucket[i]) {
-                val v = nonRecursiveFind(j)
+                val v = find(j)
                 if (sdom[v] == sdom[j]) dom[j] = sdom[j]
                 else dom[j] = v
             }
