@@ -1,3 +1,10 @@
+@file:Suppress("NOTHING_TO_INLINE")
+
 package org.vorpal.research.kthelper
 
-fun defaultHashCode(vararg objects: Any) = objects.fold(1) { acc, any -> 31 * acc + any.hashCode() }
+inline fun defaultHashCode(vararg objects: Any): Int {
+    var result = 1
+    for (element in objects)
+        result = 31 * result + element.hashCode()
+    return result
+}
