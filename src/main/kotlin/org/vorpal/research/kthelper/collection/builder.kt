@@ -1,5 +1,6 @@
 package org.vorpal.research.kthelper.collection
 
+@Deprecated("Use built-in kotlin builders instead")
 interface MutableBuilder<T> : MutableCollection<T> {
     val inner: MutableCollection<T>
 
@@ -15,6 +16,7 @@ interface MutableBuilder<T> : MutableCollection<T> {
 open class ListBuilder<T>(override val inner: MutableList<T> = mutableListOf<T>()) : MutableBuilder<T>, MutableList<T> by inner
 open class SetBuilder<T>(override val inner: MutableSet<T> = mutableSetOf<T>()) : MutableBuilder<T>, MutableSet<T> by inner
 
+@Deprecated("Use built-in kotlin builders instead")
 fun <T> buildList(init: ListBuilder<T>.() -> Unit): List<T> {
     val builder = ListBuilder<T>()
     builder.init()
@@ -23,6 +25,7 @@ fun <T> buildList(init: ListBuilder<T>.() -> Unit): List<T> {
 
 fun <T> listOf(action: () -> T) = listOf(action())
 
+@Deprecated("Use built-in kotlin builders instead")
 fun <T> buildSet(init: SetBuilder<T>.() -> Unit): Set<T> {
     val builder = SetBuilder<T>()
     builder.init()

@@ -41,7 +41,7 @@ class DominatorTreeNode<T : Graph.Vertex<T>>(val value: T) : Tree.TreeNode<Domin
 }
 
 class DominatorTree<T : Graph.Vertex<T>>
-    : MutableMap<T, DominatorTreeNode<T>> by mutableMapOf<T, DominatorTreeNode<T>>(), Viewable {
+    : MutableMap<T, DominatorTreeNode<T>> by mutableMapOf(), Viewable {
     override val graphView: List<GraphView>
         get() {
             val nodes = hashMapOf<String, GraphView>()
