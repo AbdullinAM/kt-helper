@@ -13,6 +13,7 @@ import java.nio.file.Path
 interface Viewable {
     val graphView: List<GraphView>
 
+    @Suppress("unused")
     fun view(name: String, dot: String, viewer: String): String =
         Util.sh(arrayOf(viewer).plus("file://${toFile(name, dot)}"))
 

@@ -2,6 +2,7 @@
 
 package org.vorpal.research.kthelper
 
+@Deprecated("use auto generated hash code")
 inline fun defaultHashCode(vararg objects: Any): Int {
     var result = 1
     for (element in objects)

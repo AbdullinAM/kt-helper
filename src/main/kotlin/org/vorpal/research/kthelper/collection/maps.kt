@@ -1,3 +1,5 @@
+@file:Suppress("MemberVisibilityCanBePrivate", "unused")
+
 package org.vorpal.research.kthelper.collection
 
 class MapWithDefault<K, V>(

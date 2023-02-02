@@ -1,3 +1,5 @@
+@file:Suppress("DEPRECATION")
+
 package org.vorpal.research.kthelper.collection
 
 @Deprecated("Use built-in kotlin builders instead")
@@ -13,8 +15,15 @@ interface MutableBuilder<T> : MutableCollection<T> {
     }
 }
 
-open class ListBuilder<T>(override val inner: MutableList<T> = mutableListOf<T>()) : MutableBuilder<T>, MutableList<T> by inner
-open class SetBuilder<T>(override val inner: MutableSet<T> = mutableSetOf<T>()) : MutableBuilder<T>, MutableSet<T> by inner
+@Deprecated("Use built-in kotlin builders instead")
+open class ListBuilder<T>(
+    override val inner: MutableList<T> = mutableListOf()
+) : MutableBuilder<T>, MutableList<T> by inner
+
+@Deprecated("Use built-in kotlin builders instead")
+open class SetBuilder<T>(
+    override val inner: MutableSet<T> = mutableSetOf()
+) : MutableBuilder<T>, MutableSet<T> by inner
 
 @Deprecated("Use built-in kotlin builders instead")
 fun <T> buildList(init: ListBuilder<T>.() -> Unit): List<T> {

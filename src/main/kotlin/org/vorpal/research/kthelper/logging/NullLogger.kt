@@ -3,6 +3,7 @@ package org.vorpal.research.kthelper.logging
 import org.slf4j.Logger
 import org.slf4j.Marker
 
+@Suppress("unused")
 class NullLogger : Logger {
     override fun getName(): String = "null"
     override fun isTraceEnabled(): Boolean = false

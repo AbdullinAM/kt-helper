@@ -1,3 +1,5 @@
+@file:Suppress("unused")
+
 package org.vorpal.research.kthelper.logging
 
 import org.slf4j.Logger

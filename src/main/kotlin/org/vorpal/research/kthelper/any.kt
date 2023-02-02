@@ -1,3 +1,5 @@
+@file:Suppress("unused")
+
 package org.vorpal.research.kthelper
 
 inline fun <T> T.runIf(cond: Boolean, crossinline block: T.() -> Unit) {

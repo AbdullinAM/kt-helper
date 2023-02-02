@@ -4,6 +4,7 @@ import java.util.*
 
 fun <T> stackOf(vararg elements: T) = Stack(elements.toList())
 
+@Suppress("unused")
 class Stack<T>(elements: Collection<T>) : AbstractCollection<T>() {
     private val inner = dequeOf(elements)
 

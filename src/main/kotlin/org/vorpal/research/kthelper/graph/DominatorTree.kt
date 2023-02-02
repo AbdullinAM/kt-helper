@@ -5,6 +5,7 @@ import org.vorpal.research.kthelper.collection.stackOf
 import org.vorpal.research.kthelper.tree.Tree
 import kotlin.math.min
 
+@Suppress("unused")
 class DominatorTreeNode<T : Graph.Vertex<T>>(val value: T) : Tree.TreeNode<DominatorTreeNode<T>> {
     var idom: DominatorTreeNode<T>? = null
         internal set
@@ -66,6 +67,7 @@ class DominatorTree<T : Graph.Vertex<T>>
         }
 }
 
+@Suppress("unused")
 class DominatorTreeBuilder<T : Graph.Vertex<T>>(private val graph: Graph<T>) {
     private val tree = DominatorTree<T>()
 
@@ -75,7 +77,7 @@ class DominatorTreeBuilder<T : Graph.Vertex<T>>(private val graph: Graph<T>) {
     private val reverseGraph = arrayListOf<ArrayList<Int>>()
     private val parents = arrayListOf<Int>()
     private val labels = arrayListOf<Int>()
-    private val sdom = arrayListOf<Int>()
+    private val sDom = arrayListOf<Int>()
     private val dom = arrayListOf<Int>()
     private val dsu = arrayListOf<Int>()
     private val bucket = arrayListOf<MutableSet<Int>>()
@@ -84,7 +86,7 @@ class DominatorTreeBuilder<T : Graph.Vertex<T>>(private val graph: Graph<T>) {
         for (i in graph.nodes) {
             parents.add(-1)
             labels.add(-1)
-            sdom.add(-1)
+            sDom.add(-1)
             dom.add(-1)
             dsu.add(-1)
             reverseMapping.add(null)
@@ -128,7 +130,7 @@ class DominatorTreeBuilder<T : Graph.Vertex<T>>(private val graph: Graph<T>) {
                 currentV = currentU
                 continue
             }
-            if (sdom[labels[dsu[currentU]]] < sdom[labels[currentU]]) labels[currentU] = labels[dsu[currentU]]
+            if (sDom[labels[dsu[currentU]]] < sDom[labels[currentU]]) labels[currentU] = labels[dsu[currentU]]
             dsu[currentU] = currentV
             currentV = if (currentX != 0) currentV else labels[currentU]
         }
@@ -141,7 +143,7 @@ class DominatorTreeBuilder<T : Graph.Vertex<T>>(private val graph: Graph<T>) {
         if (u == dsu[u]) return if (x != 0) -1 else u
         val v = findRecursive(dsu[u], x + 1)
         if (v < 0) return u
-        if (sdom[labels[dsu[u]]] < sdom[labels[u]]) labels[u] = labels[dsu[u]]
+        if (sDom[labels[dsu[u]]] < sDom[labels[u]]) labels[u] = labels[dsu[u]]
         dsu[u] = v
         return if (x != 0) v else labels[u]
     }
@@ -150,7 +152,7 @@ class DominatorTreeBuilder<T : Graph.Vertex<T>>(private val graph: Graph<T>) {
         dfsTree[node] = nodeCounter
         reverseMapping[nodeCounter] = node
         labels[nodeCounter] = nodeCounter
-        sdom[nodeCounter] = nodeCounter
+        sDom[nodeCounter] = nodeCounter
         dsu[nodeCounter] = nodeCounter
         nodeCounter++
         for (it in node.successors) {
@@ -176,7 +178,7 @@ class DominatorTreeBuilder<T : Graph.Vertex<T>>(private val graph: Graph<T>) {
             dfsTree[top] = nodeCounter
             reverseMapping[nodeCounter] = top
             labels[nodeCounter] = nodeCounter
-            sdom[nodeCounter] = nodeCounter
+            sDom[nodeCounter] = nodeCounter
             dsu[nodeCounter] = nodeCounter
             nodeCounter++
             if (parent >= 0) {
@@ -199,18 +201,18 @@ class DominatorTreeBuilder<T : Graph.Vertex<T>>(private val graph: Graph<T>) {
         val n = dfsTree.size
         for (i in n - 1 downTo 0) {
             for (j in reverseGraph[i]) {
-                sdom[i] = min(sdom[i], sdom[find(j)])
+                sDom[i] = min(sDom[i], sDom[find(j)])
             }
-            if (i > 0) bucket[sdom[i]].add(i)
+            if (i > 0) bucket[sDom[i]].add(i)
             for (j in bucket[i]) {
                 val v = find(j)
-                if (sdom[v] == sdom[j]) dom[j] = sdom[j]
+                if (sDom[v] == sDom[j]) dom[j] = sDom[j]
                 else dom[j] = v
             }
             if (i > 0) union(parents[i], i)
         }
         for (i in 1 until n) {
-            if (dom[i] != sdom[i]) dom[i] = dom[dom[i]]
+            if (dom[i] != sDom[i]) dom[i] = dom[dom[i]]
         }
         for ((it, idom) in dom.withIndex()) {
             val current = reverseMapping[it]!!

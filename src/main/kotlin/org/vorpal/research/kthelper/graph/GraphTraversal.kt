@@ -7,6 +7,7 @@ import java.util.*
 
 class NoTopologicalSortingException(msg: String) : KtException(msg)
 
+@Suppress("MemberVisibilityCanBePrivate")
 class GraphTraversal<T : Graph.Vertex<T>>(private val graph: Graph<T>) {
     private enum class Colour { WHITE, GREY, BLACK }
 

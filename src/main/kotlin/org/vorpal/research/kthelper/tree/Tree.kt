@@ -1,6 +1,7 @@
 package org.vorpal.research.kthelper.tree
 
 
+@Suppress("unused")
 interface Tree<T : Tree.TreeNode<T>> {
     val root: T?
     val nodes: Set<T>

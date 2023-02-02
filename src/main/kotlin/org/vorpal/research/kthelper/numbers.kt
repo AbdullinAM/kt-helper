@@ -7,7 +7,7 @@ fun Boolean.toInt(): Int = if (this) 1 else 0
 fun Int.toBoolean(): Boolean = this > 0
 fun Number.toBoolean(): Boolean = toInt().toBoolean()
 
-fun Number.recast(type: KClass<*>): Any = when (type) {
+fun Number.cast(type: KClass<*>): Any = when (type) {
     Byte::class -> toByte()
     Short::class -> toShort()
     Int::class -> toInt()
@@ -17,7 +17,7 @@ fun Number.recast(type: KClass<*>): Any = when (type) {
     else -> throw IllegalStateException("Unsupported number type")
 }
 
-inline fun <reified T> Number.recast() = recast(T::class) as T
+inline fun <reified T> Number.cast() = cast(T::class) as T
 
 operator fun Number.plus(other: Number): Number = when (this) {
     is Long -> this.toLong() + other.toLong()

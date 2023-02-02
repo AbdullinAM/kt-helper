@@ -15,9 +15,9 @@ class Try<T> internal constructor(val unsafe: Any?) {
         )
     }
 
-    val isFailure get() = unsafe is Failure
-    val isSuccess get() = !isFailure
-    val exception get() = asserted<Throwable>(isFailure) { failure!!.exception }
+    val isFailure: Boolean get() = unsafe is Failure
+    val isSuccess: Boolean get() = !isFailure
+    val exception: Throwable get() = asserted(isFailure) { failure!!.exception }
 
     fun getOrDefault(value: T) = when {
         isSuccess -> unsafe as T

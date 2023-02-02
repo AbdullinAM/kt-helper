@@ -1,3 +1,5 @@
+@file:Suppress("MemberVisibilityCanBePrivate")
+
 package org.vorpal.research.kthelper.collection
 
 class Subset<T : Any>(val data: T?) {
@@ -19,6 +21,7 @@ class Subset<T : Any>(val data: T?) {
     override fun toString() = "Subset $data"
 }
 
+@Suppress("unused")
 class DisjointSet<T : Any>(private val children: MutableSet<Subset<T>> = mutableSetOf()) : MutableSet<Subset<T>> by children {
     fun find(element: Subset<T>) = element.getRoot()
     fun findUnsafe(element: Subset<T>?) = element?.getRoot()
