@@ -2,7 +2,7 @@
 
 package org.vorpal.research.kthelper.strings
 
-import java.util.*
+import java.util.Locale
 
 fun String.kapitalize() =
     this.replaceFirstChar { if (it.isLowerCase()) it.titlecase(Locale.getDefault()) else it.toString() }

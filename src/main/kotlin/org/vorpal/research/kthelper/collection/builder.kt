@@ -1,4 +1,4 @@
-@file:Suppress("DEPRECATION")
+@file:Suppress("DEPRECATION", "unused")
 
 package org.vorpal.research.kthelper.collection
 

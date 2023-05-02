@@ -34,72 +34,56 @@ inline fun <A> Collection<A>.mapToBooleanArray(body: (A) -> Boolean): BooleanArr
     val arr = BooleanArray(size)
     var i = 0
     for (e in this) arr[i++] = body(e)
-    @Suppress("UNCHECKED_CAST")
     return arr
-
 }
 
 inline fun <A> Collection<A>.mapToCharArray(body: (A) -> Char): CharArray {
     val arr = CharArray(size)
     var i = 0
     for (e in this) arr[i++] = body(e)
-    @Suppress("UNCHECKED_CAST")
     return arr
-
 }
 
 inline fun <A> Collection<A>.mapToByteArray(body: (A) -> Byte): ByteArray {
     val arr = ByteArray(size)
     var i = 0
     for (e in this) arr[i++] = body(e)
-    @Suppress("UNCHECKED_CAST")
     return arr
-
 }
 
 inline fun <A> Collection<A>.mapToShortArray(body: (A) -> Short): ShortArray {
     val arr = ShortArray(size)
     var i = 0
     for (e in this) arr[i++] = body(e)
-    @Suppress("UNCHECKED_CAST")
     return arr
-
 }
 
 inline fun <A> Collection<A>.mapToIntArray(body: (A) -> Int): IntArray {
     val arr = IntArray(size)
     var i = 0
     for (e in this) arr[i++] = body(e)
-    @Suppress("UNCHECKED_CAST")
     return arr
-
 }
 
 inline fun <A> Collection<A>.mapToLongArray(body: (A) -> Long): LongArray {
     val arr = LongArray(size)
     var i = 0
     for (e in this) arr[i++] = body(e)
-    @Suppress("UNCHECKED_CAST")
     return arr
-
 }
 
 inline fun <A> Collection<A>.mapToFloatArray(body: (A) -> Float): FloatArray {
     val arr = FloatArray(size)
     var i = 0
     for (e in this) arr[i++] = body(e)
-    @Suppress("UNCHECKED_CAST")
     return arr
-
 }
 
 inline fun <A> Collection<A>.mapToDoubleArray(body: (A) -> Double): DoubleArray {
     val arr = DoubleArray(size)
     var i = 0
     for (e in this) arr[i++] = body(e)
-    @Suppress("UNCHECKED_CAST")
     return arr
-
 }
 
 inline fun <A, reified B> Array<A>.mapToArray(body: (A) -> B): Array<B> {
@@ -193,9 +177,7 @@ inline fun <A> Collection<A>.mapIndexedToBooleanArray(body: (index: Int, element
         arr[i] = body(i, e)
         i++
     }
-    @Suppress("UNCHECKED_CAST")
     return arr
-
 }
 
 inline fun <A> Collection<A>.mapIndexedToCharArray(body: (index: Int, element: A) -> Char): CharArray {
@@ -205,9 +187,7 @@ inline fun <A> Collection<A>.mapIndexedToCharArray(body: (index: Int, element: A
         arr[i] = body(i, e)
         i++
     }
-    @Suppress("UNCHECKED_CAST")
     return arr
-
 }
 
 inline fun <A> Collection<A>.mapIndexedToByteArray(body: (index: Int, element: A) -> Byte): ByteArray {
@@ -217,9 +197,7 @@ inline fun <A> Collection<A>.mapIndexedToByteArray(body: (index: Int, element: A
         arr[i] = body(i, e)
         i++
     }
-    @Suppress("UNCHECKED_CAST")
     return arr
-
 }
 
 inline fun <A> Collection<A>.mapIndexedToShortArray(body: (index: Int, element: A) -> Short): ShortArray {
@@ -229,9 +207,7 @@ inline fun <A> Collection<A>.mapIndexedToShortArray(body: (index: Int, element: 
         arr[i] = body(i, e)
         i++
     }
-    @Suppress("UNCHECKED_CAST")
     return arr
-
 }
 
 inline fun <A> Collection<A>.mapIndexedToIntArray(body: (index: Int, element: A) -> Int): IntArray {
@@ -241,9 +217,7 @@ inline fun <A> Collection<A>.mapIndexedToIntArray(body: (index: Int, element: A)
         arr[i] = body(i, e)
         i++
     }
-    @Suppress("UNCHECKED_CAST")
     return arr
-
 }
 
 inline fun <A> Collection<A>.mapIndexedToLongArray(body: (index: Int, element: A) -> Long): LongArray {
@@ -253,9 +227,7 @@ inline fun <A> Collection<A>.mapIndexedToLongArray(body: (index: Int, element: A
         arr[i] = body(i, e)
         i++
     }
-    @Suppress("UNCHECKED_CAST")
     return arr
-
 }
 
 inline fun <A> Collection<A>.mapIndexedToFloatArray(body: (index: Int, element: A) -> Float): FloatArray {
@@ -265,9 +237,7 @@ inline fun <A> Collection<A>.mapIndexedToFloatArray(body: (index: Int, element: 
         arr[i] = body(i, e)
         i++
     }
-    @Suppress("UNCHECKED_CAST")
     return arr
-
 }
 
 inline fun <A> Collection<A>.mapIndexedToDoubleArray(body: (index: Int, element: A) -> Double): DoubleArray {
@@ -277,9 +247,7 @@ inline fun <A> Collection<A>.mapIndexedToDoubleArray(body: (index: Int, element:
         arr[i] = body(i, e)
         i++
     }
-    @Suppress("UNCHECKED_CAST")
     return arr
-
 }
 
 inline fun <A, reified B> Array<A>.mapIndexedToArray(body: (index: Int, element: A) -> B): Array<B> {

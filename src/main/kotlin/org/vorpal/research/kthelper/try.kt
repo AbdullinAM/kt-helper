@@ -1,8 +1,10 @@
+@file:Suppress("unused")
+
 package org.vorpal.research.kthelper
 
 import org.vorpal.research.kthelper.assert.asserted
 
-@Suppress("UNCHECKED_CAST")
+@Suppress("UNCHECKED_CAST", "MemberVisibilityCanBePrivate")
 class Try<T> internal constructor(val unsafe: Any?) {
     @PublishedApi internal val failure: Failure? get() = unsafe as? Failure
 

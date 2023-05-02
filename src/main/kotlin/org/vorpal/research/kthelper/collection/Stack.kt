@@ -1,6 +1,6 @@
 package org.vorpal.research.kthelper.collection
 
-import java.util.*
+import java.util.AbstractCollection
 
 fun <T> stackOf(vararg elements: T) = Stack(elements.toList())
 

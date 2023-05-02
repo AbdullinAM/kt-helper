@@ -17,7 +17,14 @@ interface Viewable {
     fun view(name: String, dot: String, viewer: String): String =
         Util.sh(arrayOf(viewer).plus("file://${toFile(name, dot)}"))
 
-    fun Viewable.toFile(name: String, dot: String): Path {
+    fun Viewable.toFile(name: String, dot: String): Path =
+        toFile(name, dot) {
+            setBgColor(Color.X11.transparent)
+            setFontSize(10.0)
+            setFontName("Fira Mono")
+        }
+
+    fun Viewable.toFile(name: String, dot: String, graphConfigurator: Graph.() -> Unit): Path {
         Graph.setDefaultCmd(dot)
 
         val graph = Graph(name)
@@ -26,9 +33,7 @@ interface Viewable {
             Node(it.name).setShape(Shape.box).setLabel(it.label).setFontSize(12.0)
         }.toTypedArray())
 
-        graph.setBgColor(Color.X11.transparent)
-        graph.setFontSize(10.0)
-        graph.setFontName("Fira Mono")
+        graph.graphConfigurator()
 
         for (node in graphView) {
             for ((successor, label) in node.successors) {

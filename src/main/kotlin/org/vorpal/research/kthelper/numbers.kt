@@ -1,3 +1,5 @@
+@file:Suppress("unused")
+
 package org.vorpal.research.kthelper
 
 import org.vorpal.research.kthelper.assert.unreachable

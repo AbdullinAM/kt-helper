@@ -19,14 +19,11 @@ inline fun <T> asserted(condition: Boolean, message: String, action: () -> T): T
     return action()
 }
 
-@Suppress("ControlFlowWithEmptyBody")
 inline fun ktassert(cond: Boolean) = if (!cond) throw AssertionException() else {}
 
-@Suppress("ControlFlowWithEmptyBody")
 inline fun ktassert(cond: Boolean, message: String) = if (!cond) throw AssertionException(
     message
 ) else {}
-@Suppress("ControlFlowWithEmptyBody")
 inline fun ktassert(cond: Boolean, action: () -> Unit) = if (!cond) {
     action()
     throw AssertionException()

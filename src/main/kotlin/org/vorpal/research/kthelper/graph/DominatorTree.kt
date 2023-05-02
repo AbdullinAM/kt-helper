@@ -36,8 +36,7 @@ class DominatorTreeNode<T : Graph.Vertex<T>>(val value: T) : Tree.TreeNode<Domin
         if (this === other) return true
         if (other !is DominatorTreeNode<*>) return false
 
-        if (value != other.value) return false
-        return true
+        return value == other.value
     }
 }
 

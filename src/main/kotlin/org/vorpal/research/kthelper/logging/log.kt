@@ -24,22 +24,17 @@ fun <T> Logger.warn(t: T) = this.warn(t.toString())
 fun Logger.error() = this.error("")
 fun <T> Logger.error(t: T) = this.error(t.toString())
 
-@Suppress("ControlFlowWithEmptyBody")
 inline fun Logger.debug(message: () -> String) =
     if(isDebugEnabled) debug(message()) else {}
 
-@Suppress("ControlFlowWithEmptyBody")
 inline fun Logger.trace(message: () -> String) =
     if(isTraceEnabled) trace(message()) else {}
 
-@Suppress("ControlFlowWithEmptyBody")
 inline fun Logger.info(message: () -> String) =
     if(isInfoEnabled) info(message()) else {}
 
-@Suppress("ControlFlowWithEmptyBody")
 inline fun Logger.warn(message: () -> String) =
     if(isWarnEnabled) warn(message()) else {}
 
-@Suppress("ControlFlowWithEmptyBody")
 inline fun Logger.error(message: () -> String) =
     if(isErrorEnabled) error(message()) else {}

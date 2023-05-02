@@ -3,7 +3,7 @@ package org.vorpal.research.kthelper.graph
 import org.vorpal.research.kthelper.KtException
 import org.vorpal.research.kthelper.collection.queueOf
 import org.vorpal.research.kthelper.collection.stackOf
-import java.util.*
+import java.util.ArrayDeque
 
 class NoTopologicalSortingException(msg: String) : KtException(msg)
 
