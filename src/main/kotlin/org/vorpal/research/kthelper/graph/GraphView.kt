@@ -20,7 +20,7 @@ interface Viewable {
     fun Viewable.toFile(name: String, dot: String): Path =
         toFile(name, dot) {
             setBgColor(Color.X11.transparent)
-            setFontSize(10.0)
+            setFontSize(12.0)
             setFontName("Fira Mono")
         }
 
