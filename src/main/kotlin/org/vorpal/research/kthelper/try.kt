@@ -26,9 +26,9 @@ class Try<T> internal constructor(val unsafe: Any?) {
         else -> value
     }
 
-    inline fun getOrElse(block: () -> T) = when {
+    inline fun getOrElse(block: (Throwable) -> T) = when {
         isSuccess -> unsafe as T
-        else -> block()
+        else -> block(failure!!.exception)
     }
 
     fun getOrNull() = when {
@@ -36,11 +36,11 @@ class Try<T> internal constructor(val unsafe: Any?) {
         else -> null
     }
 
-    fun getOrThrow(): T = getOrThrow { this }
+    fun getOrThrow(): T = getOrThrow { it }
 
-    inline fun getOrThrow(action: Throwable.() -> Throwable): T {
+    inline fun getOrThrow(crossinline action: (Throwable) -> Throwable): T {
         failure?.apply {
-            val throwable = exception.action()
+            val throwable = action(exception)
             throw throwable
         }
         return unsafe as T
