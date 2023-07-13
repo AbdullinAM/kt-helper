@@ -7,7 +7,7 @@
     <artifactId>kt-helper</artifactId>
     <groupId>org.vorpal.research</groupId>
     <packaging>jar</packaging>
-    <version>0.1.9</version>
+    <version>0.1.10</version>
 
     <properties>
         <jvm.version>1.8</jvm.version>

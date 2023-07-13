@@ -435,3 +435,43 @@ inline fun <A, B, R, C : MutableCollection<R>> Iterable<A>.zipTo(that: Iterable<
     }
     return to
 }
+
+
+fun <T> Iterable<T>.elementAt(index: UInt): T = elementAt(index.toInt())
+inline fun <T> List<T>.elementAt(index: UInt): T = get(index.toInt())
+fun <T> Iterable<T>.elementAtOrElse(index: UInt, defaultValue: (Int) -> T): T =
+    elementAtOrElse(index.toInt(), defaultValue)
+
+inline fun <T> List<T>.elementAtOrElse(index: UInt, defaultValue: (Int) -> T): T =
+    elementAtOrElse(index.toInt(), defaultValue)
+
+fun <T> Iterable<T>.elementAtOrNull(index: UInt): T? = elementAtOrNull(index.toInt())
+
+inline fun <T> List<T>.elementAtOrNull(index: UInt): T? = elementAtOrNull(index.toInt())
+
+inline fun <T> List<T>.getOrElse(index: UInt, defaultValue: (Int) -> T): T = getOrElse(index.toInt(), defaultValue)
+
+fun <T> List<T>.getOrNull(index: UInt): T? = getOrNull(index.toInt())
+
+fun <T> Iterable<T>.drop(n: UInt): List<T> = drop(n.toInt())
+
+fun <T> List<T>.dropLast(n: UInt): List<T> = dropLast(n.toInt())
+
+fun <T> Iterable<T>.take(n: UInt): List<T> = take(n.toInt())
+
+fun <T> List<T>.takeLast(n: UInt): List<T> = takeLast(n.toInt())
+
+fun <T> Iterable<T>.chunked(size: UInt): List<List<T>> = chunked(size.toInt())
+
+fun <T, R> Iterable<T>.chunked(size: UInt, transform: (List<T>) -> R): List<R> = chunked(size.toInt(), transform)
+
+fun <T> Iterable<T>.windowed(size: UInt, step: UInt = 1U, partialWindows: Boolean = false): List<List<T>> =
+    windowed(size.toInt(), step.toInt(), partialWindows)
+
+fun <T, R> Iterable<T>.windowed(
+    size: UInt,
+    step: UInt = 1U,
+    partialWindows: Boolean = false,
+    transform: (List<T>) -> R
+): List<R> =
+    windowed(size.toInt(), step.toInt(), partialWindows, transform)
