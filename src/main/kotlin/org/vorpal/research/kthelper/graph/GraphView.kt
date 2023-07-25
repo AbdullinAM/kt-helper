@@ -29,16 +29,19 @@ interface Viewable {
 
         val graph = Graph(name)
 
-        graph.addNodes(*graphView.map {
-            Node(it.name).setShape(Shape.box).setLabel(it.label).setFontSize(12.0)
+        graph.addNodes(*graphView.map { vertex ->
+            val node = Node(vertex.name).setShape(Shape.box).setLabel(vertex.label).setFontSize(12.0)
+            vertex.nodeConfigurator(node)
+            node
         }.toTypedArray())
 
         graph.graphConfigurator()
 
         for (node in graphView) {
-            for ((successor, label) in node.successors) {
+            for ((successor, label, configurator) in node.successors) {
                 graph.addEdge(Edge(node.name, successor.name).also {
                     it.setLabel(label)
+                    configurator(it)
                 })
             }
         }
@@ -52,12 +55,13 @@ interface Viewable {
 
 data class GraphView(
     val name: String,
-    val label: String
+    val label: String,
+    val nodeConfigurator: (Node) -> Unit = {}
 ) {
-    val successors: List<Pair<GraphView, String>> get() = mutableSuccessors
-    private val mutableSuccessors = mutableListOf<Pair<GraphView, String>>()
+    val successors: List<Triple<GraphView, String, (Edge) -> Unit>> get() = mutableSuccessors
+    private val mutableSuccessors = mutableListOf<Triple<GraphView, String, (Edge) -> Unit>>()
 
-    fun addSuccessor(successor: GraphView, label: String = "") {
-        mutableSuccessors += successor to label
+    fun addSuccessor(successor: GraphView, label: String = "", edgeConfigurator: (Edge) -> Unit = {}) {
+        mutableSuccessors += Triple(successor, label, edgeConfigurator)
     }
 }
