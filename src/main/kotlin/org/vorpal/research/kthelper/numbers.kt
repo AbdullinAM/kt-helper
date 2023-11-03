@@ -91,7 +91,7 @@ operator fun Number.compareTo(other: Number): Int = when (this) {
     else -> unreachable("Unknown numeric type")
 }
 
-fun Number.shl(bits: Int): Number = when (this) {
+infix fun Number.shl(bits: Int): Number = when (this) {
     is Long -> this.toLong().shl(bits)
     is Int -> this.toInt().shl(bits)
     is Short -> this.toShort().shl(bits)
@@ -101,7 +101,7 @@ fun Number.shl(bits: Int): Number = when (this) {
     else -> unreachable("Unknown numeric type")
 }
 
-fun Number.shr(bits: Int): Number = when (this) {
+infix fun Number.shr(bits: Int): Number = when (this) {
     is Long -> this.toLong().shr(bits)
     is Int -> this.toInt().shr(bits)
     is Short -> this.toShort().shr(bits)
@@ -111,7 +111,7 @@ fun Number.shr(bits: Int): Number = when (this) {
     else -> unreachable("Unknown numeric type")
 }
 
-fun Number.ushr(bits: Int): Number = when (this) {
+infix fun Number.ushr(bits: Int): Number = when (this) {
     is Long -> this.toLong().ushr(bits)
     is Int -> this.toInt().ushr(bits)
     is Short -> this.toShort().ushr(bits)
@@ -149,4 +149,40 @@ infix fun Number.xor(other: Number): Number = when (this) {
     is Double -> this.toDouble() xor other.toDouble()
     is Float -> this.toFloat() xor other.toFloat()
     else -> unreachable("Unknown numeric type")
+}
+
+fun minOf(vararg numbers: Number): Number {
+    if (numbers.isEmpty()) throw IllegalStateException()
+    var min = numbers.first()
+    for (i in 1..numbers.lastIndex) {
+        if (numbers[i] < min) min = numbers[i]
+    }
+    return min
+}
+
+fun maxOf(vararg numbers: Number): Number {
+    if (numbers.isEmpty()) throw IllegalStateException()
+    var max = numbers.first()
+    for (i in 1..numbers.lastIndex) {
+        if (numbers[i] > max) max = numbers[i]
+    }
+    return max
+}
+
+fun minOf(numbers: Collection<Number>): Number {
+    if (numbers.isEmpty()) throw IllegalStateException()
+    var min = numbers.first()
+    for (num in numbers) {
+        if (num < min) min = num
+    }
+    return min
+}
+
+fun maxOf(numbers: Collection<Number>): Number {
+    if (numbers.isEmpty()) throw IllegalStateException()
+    var max = numbers.first()
+    for (num in numbers) {
+        if (num > max) max = num
+    }
+    return max
 }
