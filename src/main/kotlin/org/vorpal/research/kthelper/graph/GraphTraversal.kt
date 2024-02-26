@@ -3,7 +3,7 @@ package org.vorpal.research.kthelper.graph
 import org.vorpal.research.kthelper.KtException
 import org.vorpal.research.kthelper.collection.queueOf
 import org.vorpal.research.kthelper.collection.stackOf
-import java.util.ArrayDeque
+import java.util.*
 
 class NoTopologicalSortingException(msg: String) : KtException(msg)
 
@@ -81,4 +81,15 @@ class GraphTraversal<T : Graph.Vertex<T>>(private val graph: Graph<T>) {
     }
 
     fun topologicalSort(start: T = graph.entry): List<T> = topologicalSort(start) { it }
+
+    fun components(): Pair<UInt, Map<T, UInt>> {
+        var componentNumber = 0U
+        val components = mutableMapOf<T, UInt>()
+        for (node in graph.nodes) {
+            if (node in components) continue
+            dfs(node) { components[it] = componentNumber }
+            ++componentNumber
+        }
+        return (componentNumber + 1U) to components
+    }
 }

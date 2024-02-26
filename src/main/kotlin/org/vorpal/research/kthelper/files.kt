@@ -5,6 +5,7 @@ package org.vorpal.research.kthelper
 import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.InputStream
+import java.nio.file.Path
 
 private const val MAX_BYTE_ARRAY_SIZE = 16384
 
@@ -22,3 +23,11 @@ val InputStream.asByteArray: ByteArray get() {
 }
 
 fun File.write(input: InputStream) = this.writeBytes(input.asByteArray)
+
+fun Path.resolve(vararg names: String): Path {
+    var current = this
+    for (name in names) {
+        current = current.resolve(name)
+    }
+    return current
+}
