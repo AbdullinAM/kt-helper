@@ -31,6 +31,10 @@ class Try<T> internal constructor(val unsafe: Any?) {
         else -> block(failure!!.exception)
     }
 
+    inline fun orElse(block: (Throwable) -> Unit) {
+        if (isFailure) block(exception)
+    }
+
     fun getOrNull() = when {
         isSuccess -> unsafe as T
         else -> null
