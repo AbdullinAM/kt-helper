@@ -38,3 +38,14 @@ inline fun Logger.warn(message: () -> String) =
 
 inline fun Logger.error(message: () -> String) =
     if(isErrorEnabled) error(message()) else {}
+
+
+fun Logger.ftrace(formattedString: String, vararg arguments: Any?) = this.trace(String.format(formattedString, *arguments))
+
+fun Logger.finfo(formattedString: String, vararg arguments: Any?) = this.info(String.format(formattedString, *arguments))
+
+fun Logger.fdebug(formattedString: String, vararg arguments: Any?) = this.debug(String.format(formattedString, *arguments))
+
+fun Logger.fwarn(formattedString: String, vararg arguments: Any?) = this.warn(String.format(formattedString, *arguments))
+
+fun Logger.ferror(formattedString: String, vararg arguments: Any?) = this.error(String.format(formattedString, *arguments))
