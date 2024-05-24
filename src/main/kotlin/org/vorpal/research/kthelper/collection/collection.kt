@@ -3,6 +3,7 @@
 package org.vorpal.research.kthelper.collection
 
 import java.util.*
+import java.util.stream.Stream
 
 fun <T> queueOf(vararg elements: T): Queue<T> = ArrayDeque(elements.toList())
 fun <T> queueOf(elements: Collection<T>): Queue<T> = ArrayDeque(elements.toList())
@@ -83,6 +84,70 @@ inline fun <A> Collection<A>.mapToDoubleArray(body: (A) -> Double): DoubleArray 
     val arr = DoubleArray(size)
     var i = 0
     for (e in this) arr[i++] = body(e)
+    return arr
+}
+
+inline fun <K, V, reified B> Map<K,V>.mapToArray(body: (K, V) -> B): Array<B> {
+    val arr = arrayOfNulls<B>(size)
+    var i = 0
+    for ((k, v) in this) arr[i++] = body(k, v)
+    @Suppress("UNCHECKED_CAST")
+    return arr as Array<B>
+}
+
+inline fun <K, V, reified B> Map<K,V>.mapToBooleanArray(body: (K, V) -> Boolean): BooleanArray {
+    val arr = BooleanArray(size)
+    var i = 0
+    for ((k, v) in this) arr[i++] = body(k, v)
+    return arr
+}
+
+inline fun <K, V, reified B> Map<K,V>.mapToCharArray(body: (K, V) -> Char): CharArray {
+    val arr = CharArray(size)
+    var i = 0
+    for ((k, v) in this) arr[i++] = body(k, v)
+    return arr
+}
+
+inline fun <K, V, reified B> Map<K,V>.mapToByteArray(body: (K, V) -> Byte): ByteArray {
+    val arr = ByteArray(size)
+    var i = 0
+    for ((k, v) in this) arr[i++] = body(k, v)
+    return arr
+}
+
+inline fun <K, V, reified B> Map<K,V>.mapToShortArray(body: (K, V) -> Short): ShortArray {
+    val arr = ShortArray(size)
+    var i = 0
+    for ((k, v) in this) arr[i++] = body(k, v)
+    return arr
+}
+
+inline fun <K, V, reified B> Map<K,V>.mapToIntArray(body: (K, V) -> Int): IntArray {
+    val arr = IntArray(size)
+    var i = 0
+    for ((k, v) in this) arr[i++] = body(k, v)
+    return arr
+}
+
+inline fun <K, V, reified B> Map<K,V>.mapToLongArray(body: (K, V) -> Long): LongArray {
+    val arr = LongArray(size)
+    var i = 0
+    for ((k, v) in this) arr[i++] = body(k, v)
+    return arr
+}
+
+inline fun <K, V, reified B> Map<K,V>.mapToFloatArray(body: (K, V) -> Float): FloatArray {
+    val arr = FloatArray(size)
+    var i = 0
+    for ((k, v) in this) arr[i++] = body(k, v)
+    return arr
+}
+
+inline fun <K, V, reified B> Map<K,V>.mapToDoubleArray(body: (K, V) -> Double): DoubleArray {
+    val arr = DoubleArray(size)
+    var i = 0
+    for ((k, v) in this) arr[i++] = body(k, v)
     return arr
 }
 
@@ -261,6 +326,70 @@ inline fun <A, reified B> Array<A>.mapIndexedToArray(body: (index: Int, element:
     return arr as Array<B>
 }
 
+inline fun <K, V, reified B> Map<K,V>.mapIndexedToArray(body: (index: Int, key: K, value: V) -> B): Array<B> {
+    val arr = arrayOfNulls<B>(size)
+    var i = 0
+    for ((k, v) in this) arr[i++] = body(i, k, v)
+    @Suppress("UNCHECKED_CAST")
+    return arr as Array<B>
+}
+
+inline fun <K, V, reified B> Map<K,V>.mapIndexedToBooleanArray(body: (index: Int, key: K, value: V) -> Boolean): BooleanArray {
+    val arr = BooleanArray(size)
+    var i = 0
+    for ((k, v) in this) arr[i++] = body(i, k, v)
+    return arr
+}
+
+inline fun <K, V, reified B> Map<K,V>.mapIndexedToCharArray(body: (index: Int, key: K, value: V) -> Char): CharArray {
+    val arr = CharArray(size)
+    var i = 0
+    for ((k, v) in this) arr[i++] = body(i, k, v)
+    return arr
+}
+
+inline fun <K, V, reified B> Map<K,V>.mapIndexedToByteArray(body: (index: Int, key: K, value: V) -> Byte): ByteArray {
+    val arr = ByteArray(size)
+    var i = 0
+    for ((k, v) in this) arr[i++] = body(i, k, v)
+    return arr
+}
+
+inline fun <K, V, reified B> Map<K,V>.mapIndexedToShortArray(body: (index: Int, key: K, value: V) -> Short): ShortArray {
+    val arr = ShortArray(size)
+    var i = 0
+    for ((k, v) in this) arr[i++] = body(i, k, v)
+    return arr
+}
+
+inline fun <K, V, reified B> Map<K,V>.mapIndexedToIntArray(body: (index: Int, key: K, value: V) -> Int): IntArray {
+    val arr = IntArray(size)
+    var i = 0
+    for ((k, v) in this) arr[i++] = body(i, k, v)
+    return arr
+}
+
+inline fun <K, V, reified B> Map<K,V>.mapIndexedToLongArray(body: (index: Int, key: K, value: V) -> Long): LongArray {
+    val arr = LongArray(size)
+    var i = 0
+    for ((k, v) in this) arr[i++] = body(i, k, v)
+    return arr
+}
+
+inline fun <K, V, reified B> Map<K,V>.mapIndexedToFloatArray(body: (index: Int, key: K, value: V) -> Float): FloatArray {
+    val arr = FloatArray(size)
+    var i = 0
+    for ((k, v) in this) arr[i++] = body(i, k, v)
+    return arr
+}
+
+inline fun <K, V, reified B> Map<K,V>.mapIndexedToDoubleArray(body: (index: Int, key: K, value: V) -> Double): DoubleArray {
+    val arr = DoubleArray(size)
+    var i = 0
+    for ((k, v) in this) arr[i++] = body(i, k, v)
+    return arr
+}
+
 inline fun <reified B> BooleanArray.mapIndexedToArray(body: (index: Int, element: Boolean) -> B): Array<B> {
     val arr = arrayOfNulls<B>(size)
     var i = 0
@@ -349,6 +478,317 @@ inline fun <reified B> DoubleArray.mapIndexedToArray(body: (index: Int, element:
     return arr as Array<B>
 }
 
+
+inline fun <A, reified B> Sequence<A>.mapToArray(body: (A) -> B): Array<B> {
+    val arr = arrayOfNulls<B>(count())
+    var i = 0
+    for (e in this) arr[i++] = body(e)
+    @Suppress("UNCHECKED_CAST")
+    return arr as Array<B>
+}
+
+inline fun <A> Sequence<A>.mapToBooleanArray(body: (A) -> Boolean): BooleanArray {
+    val arr = BooleanArray(count())
+    var i = 0
+    for (e in this) arr[i++] = body(e)
+    return arr
+}
+
+inline fun <A> Sequence<A>.mapToCharArray(body: (A) -> Char): CharArray {
+    val arr = CharArray(count())
+    var i = 0
+    for (e in this) arr[i++] = body(e)
+    return arr
+}
+
+inline fun <A> Sequence<A>.mapToByteArray(body: (A) -> Byte): ByteArray {
+    val arr = ByteArray(count())
+    var i = 0
+    for (e in this) arr[i++] = body(e)
+    return arr
+}
+
+inline fun <A> Sequence<A>.mapToShortArray(body: (A) -> Short): ShortArray {
+    val arr = ShortArray(count())
+    var i = 0
+    for (e in this) arr[i++] = body(e)
+    return arr
+}
+
+inline fun <A> Sequence<A>.mapToIntArray(body: (A) -> Int): IntArray {
+    val arr = IntArray(count())
+    var i = 0
+    for (e in this) arr[i++] = body(e)
+    return arr
+}
+
+inline fun <A> Sequence<A>.mapToLongArray(body: (A) -> Long): LongArray {
+    val arr = LongArray(count())
+    var i = 0
+    for (e in this) arr[i++] = body(e)
+    return arr
+}
+
+inline fun <A> Sequence<A>.mapToFloatArray(body: (A) -> Float): FloatArray {
+    val arr = FloatArray(count())
+    var i = 0
+    for (e in this) arr[i++] = body(e)
+    return arr
+}
+
+inline fun <A> Sequence<A>.mapToDoubleArray(body: (A) -> Double): DoubleArray {
+    val arr = DoubleArray(count())
+    var i = 0
+    for (e in this) arr[i++] = body(e)
+    return arr
+}
+
+inline fun <A, reified B> Sequence<A>.mapIndexedToArray(body: (index: Int, element: A) -> B): Array<B> {
+    val arr = arrayOfNulls<B>(count())
+    var i = 0
+    for (e in this) {
+        arr[i] = body(i, e)
+        i++
+    }
+    @Suppress("UNCHECKED_CAST")
+    return arr as Array<B>
+}
+
+inline fun <A> Sequence<A>.mapIndexedToBooleanArray(body: (index: Int, element: A) -> Boolean): BooleanArray {
+    val arr = BooleanArray(count())
+    var i = 0
+    for (e in this) {
+        arr[i] = body(i, e)
+        i++
+    }
+    return arr
+}
+
+inline fun <A> Sequence<A>.mapIndexedToCharArray(body: (index: Int, element: A) -> Char): CharArray {
+    val arr = CharArray(count())
+    var i = 0
+    for (e in this) {
+        arr[i] = body(i, e)
+        i++
+    }
+    return arr
+}
+
+inline fun <A> Sequence<A>.mapIndexedToByteArray(body: (index: Int, element: A) -> Byte): ByteArray {
+    val arr = ByteArray(count())
+    var i = 0
+    for (e in this) {
+        arr[i] = body(i, e)
+        i++
+    }
+    return arr
+}
+
+inline fun <A> Sequence<A>.mapIndexedToShortArray(body: (index: Int, element: A) -> Short): ShortArray {
+    val arr = ShortArray(count())
+    var i = 0
+    for (e in this) {
+        arr[i] = body(i, e)
+        i++
+    }
+    return arr
+}
+
+inline fun <A> Sequence<A>.mapIndexedToIntArray(body: (index: Int, element: A) -> Int): IntArray {
+    val arr = IntArray(count())
+    var i = 0
+    for (e in this) {
+        arr[i] = body(i, e)
+        i++
+    }
+    return arr
+}
+
+inline fun <A> Sequence<A>.mapIndexedToLongArray(body: (index: Int, element: A) -> Long): LongArray {
+    val arr = LongArray(count())
+    var i = 0
+    for (e in this) {
+        arr[i] = body(i, e)
+        i++
+    }
+    return arr
+}
+
+inline fun <A> Sequence<A>.mapIndexedToFloatArray(body: (index: Int, element: A) -> Float): FloatArray {
+    val arr = FloatArray(count())
+    var i = 0
+    for (e in this) {
+        arr[i] = body(i, e)
+        i++
+    }
+    return arr
+}
+
+inline fun <A> Sequence<A>.mapIndexedToDoubleArray(body: (index: Int, element: A) -> Double): DoubleArray {
+    val arr = DoubleArray(count())
+    var i = 0
+    for (e in this) {
+        arr[i] = body(i, e)
+        i++
+    }
+    return arr
+}
+
+
+inline fun <A, reified B> Stream<A>.mapToArray(body: (A) -> B): Array<B> {
+    val arr = arrayOfNulls<B>(count().toInt())
+    var i = 0
+    for (e in this) arr[i++] = body(e)
+    @Suppress("UNCHECKED_CAST")
+    return arr as Array<B>
+}
+
+inline fun <A> Stream<A>.mapToBooleanArray(body: (A) -> Boolean): BooleanArray {
+    val arr = BooleanArray(count().toInt())
+    var i = 0
+    for (e in this) arr[i++] = body(e)
+    return arr
+}
+
+inline fun <A> Stream<A>.mapToCharArray(body: (A) -> Char): CharArray {
+    val arr = CharArray(count().toInt())
+    var i = 0
+    for (e in this) arr[i++] = body(e)
+    return arr
+}
+
+inline fun <A> Stream<A>.mapToByteArray(body: (A) -> Byte): ByteArray {
+    val arr = ByteArray(count().toInt())
+    var i = 0
+    for (e in this) arr[i++] = body(e)
+    return arr
+}
+
+inline fun <A> Stream<A>.mapToShortArray(body: (A) -> Short): ShortArray {
+    val arr = ShortArray(count().toInt())
+    var i = 0
+    for (e in this) arr[i++] = body(e)
+    return arr
+}
+
+inline fun <A> Stream<A>.mapToIntArray(body: (A) -> Int): IntArray {
+    val arr = IntArray(count().toInt())
+    var i = 0
+    for (e in this) arr[i++] = body(e)
+    return arr
+}
+
+inline fun <A> Stream<A>.mapToLongArray(body: (A) -> Long): LongArray {
+    val arr = LongArray(count().toInt())
+    var i = 0
+    for (e in this) arr[i++] = body(e)
+    return arr
+}
+
+inline fun <A> Stream<A>.mapToFloatArray(body: (A) -> Float): FloatArray {
+    val arr = FloatArray(count().toInt())
+    var i = 0
+    for (e in this) arr[i++] = body(e)
+    return arr
+}
+
+inline fun <A> Stream<A>.mapToDoubleArray(body: (A) -> Double): DoubleArray {
+    val arr = DoubleArray(count().toInt())
+    var i = 0
+    for (e in this) arr[i++] = body(e)
+    return arr
+}
+
+inline fun <A, reified B> Stream<A>.mapIndexedToArray(body: (index: Int, element: A) -> B): Array<B> {
+    val arr = arrayOfNulls<B>(count().toInt())
+    var i = 0
+    for (e in this) {
+        arr[i] = body(i, e)
+        i++
+    }
+    @Suppress("UNCHECKED_CAST")
+    return arr as Array<B>
+}
+
+inline fun <A> Stream<A>.mapIndexedToBooleanArray(body: (index: Int, element: A) -> Boolean): BooleanArray {
+    val arr = BooleanArray(count().toInt())
+    var i = 0
+    for (e in this) {
+        arr[i] = body(i, e)
+        i++
+    }
+    return arr
+}
+
+inline fun <A> Stream<A>.mapIndexedToCharArray(body: (index: Int, element: A) -> Char): CharArray {
+    val arr = CharArray(count().toInt())
+    var i = 0
+    for (e in this) {
+        arr[i] = body(i, e)
+        i++
+    }
+    return arr
+}
+
+inline fun <A> Stream<A>.mapIndexedToByteArray(body: (index: Int, element: A) -> Byte): ByteArray {
+    val arr = ByteArray(count().toInt())
+    var i = 0
+    for (e in this) {
+        arr[i] = body(i, e)
+        i++
+    }
+    return arr
+}
+
+inline fun <A> Stream<A>.mapIndexedToShortArray(body: (index: Int, element: A) -> Short): ShortArray {
+    val arr = ShortArray(count().toInt())
+    var i = 0
+    for (e in this) {
+        arr[i] = body(i, e)
+        i++
+    }
+    return arr
+}
+
+inline fun <A> Stream<A>.mapIndexedToIntArray(body: (index: Int, element: A) -> Int): IntArray {
+    val arr = IntArray(count().toInt())
+    var i = 0
+    for (e in this) {
+        arr[i] = body(i, e)
+        i++
+    }
+    return arr
+}
+
+inline fun <A> Stream<A>.mapIndexedToLongArray(body: (index: Int, element: A) -> Long): LongArray {
+    val arr = LongArray(count().toInt())
+    var i = 0
+    for (e in this) {
+        arr[i] = body(i, e)
+        i++
+    }
+    return arr
+}
+
+inline fun <A> Stream<A>.mapIndexedToFloatArray(body: (index: Int, element: A) -> Float): FloatArray {
+    val arr = FloatArray(count().toInt())
+    var i = 0
+    for (e in this) {
+        arr[i] = body(i, e)
+        i++
+    }
+    return arr
+}
+
+inline fun <A> Stream<A>.mapIndexedToDoubleArray(body: (index: Int, element: A) -> Double): DoubleArray {
+    val arr = DoubleArray(count().toInt())
+    var i = 0
+    for (e in this) {
+        arr[i] = body(i, e)
+        i++
+    }
+    return arr
+}
 
 inline fun <A, K, V, R : MutableMap<K, V>> Collection<A>.mapTo(result: R, body: (A) -> Pair<K, V>?): R {
     for (element in this) {
