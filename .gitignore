@@ -28,3 +28,4 @@ hs_err_pid*
 
 # compile output
 target/*
+/src/main/kotlin/org/vorpal/research/kthelper/main.kt

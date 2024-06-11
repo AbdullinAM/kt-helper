@@ -9,6 +9,9 @@ fun Boolean.toInt(): Int = if (this) 1 else 0
 fun Int.toBoolean(): Boolean = this != 0
 fun Number.toBoolean(): Boolean = toInt().toBoolean()
 
+val Boolean?.orFalse: Boolean get() = this ?: false
+val Boolean?.orTrue: Boolean get() = this ?: true
+
 fun Number.cast(type: KClass<*>): Any = when (type) {
     Byte::class -> toByte()
     Short::class -> toShort()
@@ -21,7 +24,7 @@ fun Number.cast(type: KClass<*>): Any = when (type) {
 
 inline fun <reified T> Number.cast() = cast(T::class) as T
 
-operator fun Number.plus(other: Number): Number = when (this) {
+inline operator fun <reified N : Number> N.plus(other: N): N = when (this) {
     is Long -> this.toLong() + other.toLong()
     is Int -> this.toInt() + other.toInt()
     is Short -> this.toShort() + other.toShort()
@@ -29,9 +32,9 @@ operator fun Number.plus(other: Number): Number = when (this) {
     is Double -> this.toDouble() + other.toDouble()
     is Float -> this.toFloat() + other.toFloat()
     else -> unreachable("Unknown numeric type")
-}
+}.cast()
 
-operator fun Number.minus(other: Number): Number = when (this) {
+inline operator fun <reified N : Number> N.minus(other: N): N = when (this) {
     is Long -> this.toLong() - other.toLong()
     is Int -> this.toInt() - other.toInt()
     is Short -> this.toShort() - other.toShort()
@@ -39,9 +42,9 @@ operator fun Number.minus(other: Number): Number = when (this) {
     is Double -> this.toDouble() - other.toDouble()
     is Float -> this.toFloat() - other.toFloat()
     else -> unreachable("Unknown numeric type")
-}
+}.cast()
 
-operator fun Number.times(other: Number): Number = when (this) {
+inline operator fun <reified N : Number> N.times(other: N): N = when (this) {
     is Long -> this.toLong() * other.toLong()
     is Int -> this.toInt() * other.toInt()
     is Short -> this.toShort() * other.toShort()
@@ -49,9 +52,9 @@ operator fun Number.times(other: Number): Number = when (this) {
     is Double -> this.toDouble() * other.toDouble()
     is Float -> this.toFloat() * other.toFloat()
     else -> unreachable("Unknown numeric type")
-}
+}.cast()
 
-operator fun Number.div(other: Number): Number = when (this) {
+inline operator fun <reified N : Number> N.div(other: N): N = when (this) {
     is Long -> this.toLong() / other.toLong()
     is Int -> this.toInt() / other.toInt()
     is Short -> this.toShort() / other.toShort()
@@ -59,9 +62,9 @@ operator fun Number.div(other: Number): Number = when (this) {
     is Double -> this.toDouble() / other.toDouble()
     is Float -> this.toFloat() / other.toFloat()
     else -> unreachable("Unknown numeric type")
-}
+}.cast()
 
-operator fun Number.rem(other: Number): Number = when (this) {
+inline operator fun <reified N : Number> N.rem(other: N): N = when (this) {
     is Long -> this.toLong() % other.toLong()
     is Int -> this.toInt() % other.toInt()
     is Short -> this.toShort() % other.toShort()
@@ -69,9 +72,9 @@ operator fun Number.rem(other: Number): Number = when (this) {
     is Double -> this.toDouble() % other.toDouble()
     is Float -> this.toFloat() % other.toFloat()
     else -> unreachable("Unknown numeric type")
-}
+}.cast()
 
-operator fun Number.unaryMinus(): Number = when (this) {
+inline operator fun <reified N : Number> N.unaryMinus(): N = when (this) {
     is Long -> this.toLong().unaryMinus()
     is Int -> this.toInt().unaryMinus()
     is Short -> this.toShort().unaryMinus()
@@ -79,9 +82,9 @@ operator fun Number.unaryMinus(): Number = when (this) {
     is Double -> this.toDouble().unaryMinus()
     is Float -> this.toFloat().unaryMinus()
     else -> unreachable("Unknown numeric type")
-}
+}.cast()
 
-operator fun Number.compareTo(other: Number): Int = when (this) {
+inline operator fun <reified N : Number> N.compareTo(other: N): Int = when (this) {
     is Long -> this.toLong().compareTo(other.toLong())
     is Int -> this.toInt().compareTo(other.toInt())
     is Short -> this.toShort().compareTo(other.toShort())
@@ -91,98 +94,50 @@ operator fun Number.compareTo(other: Number): Int = when (this) {
     else -> unreachable("Unknown numeric type")
 }
 
-infix fun Number.shl(bits: Int): Number = when (this) {
+inline infix fun <reified N : Number> N.shl(bits: Int): N = when (this) {
     is Long -> this.toLong().shl(bits)
     is Int -> this.toInt().shl(bits)
-    is Short -> this.toShort().shl(bits)
-    is Byte -> this.toByte().shl(bits)
-    is Double -> this.toDouble().shl(bits)
-    is Float -> this.toFloat().shl(bits)
+    is Short -> this.toInt().shl(bits).toShort()
+    is Byte -> this.toInt().shl(bits).toByte()
     else -> unreachable("Unknown numeric type")
-}
+}.cast()
 
-infix fun Number.shr(bits: Int): Number = when (this) {
+inline infix fun <reified N : Number> N.shr(bits: Int): N = when (this) {
     is Long -> this.toLong().shr(bits)
     is Int -> this.toInt().shr(bits)
-    is Short -> this.toShort().shr(bits)
-    is Byte -> this.toByte().shr(bits)
-    is Double -> this.toDouble().shr(bits)
-    is Float -> this.toFloat().shr(bits)
+    is Short -> this.toInt().shr(bits).toShort()
+    is Byte -> this.toInt().shr(bits).toByte()
     else -> unreachable("Unknown numeric type")
-}
+}.cast()
 
-infix fun Number.ushr(bits: Int): Number = when (this) {
+inline infix fun <reified N : Number> N.ushr(bits: Int): N = when (this) {
     is Long -> this.toLong().ushr(bits)
     is Int -> this.toInt().ushr(bits)
-    is Short -> this.toShort().ushr(bits)
-    is Byte -> this.toByte().ushr(bits)
-    is Double -> this.toDouble().ushr(bits)
-    is Float -> this.toFloat().ushr(bits)
+    is Short -> this.toInt().ushr(bits).toShort()
+    is Byte -> this.toInt().ushr(bits).toByte()
     else -> unreachable("Unknown numeric type")
-}
+}.cast()
 
-infix fun Number.and(other: Number): Number = when (this) {
+inline infix fun <reified N : Number> N.and(other: N): N = when (this) {
     is Long -> this.toLong() and other.toLong()
     is Int -> this.toInt() and other.toInt()
-    is Short -> this.toShort() and other.toShort()
-    is Byte -> this.toByte() and other.toByte()
-    is Double -> this.toDouble() and other.toDouble()
-    is Float -> this.toFloat() and other.toFloat()
+    is Short -> this.toInt() and other.toInt()
+    is Byte -> this.toInt() and other.toInt()
     else -> unreachable("Unknown numeric type")
-}
+}.cast()
 
-infix fun Number.or(other: Number): Number = when (this) {
+inline infix fun <reified N : Number> N.or(other: N): N = when (this) {
     is Long -> this.toLong() or other.toLong()
     is Int -> this.toInt() or other.toInt()
-    is Short -> this.toShort() or other.toShort()
-    is Byte -> this.toByte() or other.toByte()
-    is Double -> this.toDouble() or other.toDouble()
-    is Float -> this.toFloat() or other.toFloat()
+    is Short -> this.toInt() or other.toInt()
+    is Byte -> this.toInt() or other.toInt()
     else -> unreachable("Unknown numeric type")
-}
+}.cast()
 
-infix fun Number.xor(other: Number): Number = when (this) {
+inline infix fun <reified N : Number> N.xor(other: N): N = when (this) {
     is Long -> this.toLong() xor other.toLong()
     is Int -> this.toInt() xor other.toInt()
-    is Short -> this.toShort() xor other.toShort()
-    is Byte -> this.toByte() xor other.toByte()
-    is Double -> this.toDouble() xor other.toDouble()
-    is Float -> this.toFloat() xor other.toFloat()
+    is Short -> this.toInt() xor other.toInt()
+    is Byte -> this.toInt() xor other.toInt()
     else -> unreachable("Unknown numeric type")
-}
-
-fun minOf(vararg numbers: Number): Number {
-    if (numbers.isEmpty()) throw IllegalStateException()
-    var min = numbers.first()
-    for (i in 1..numbers.lastIndex) {
-        if (numbers[i] < min) min = numbers[i]
-    }
-    return min
-}
-
-fun maxOf(vararg numbers: Number): Number {
-    if (numbers.isEmpty()) throw IllegalStateException()
-    var max = numbers.first()
-    for (i in 1..numbers.lastIndex) {
-        if (numbers[i] > max) max = numbers[i]
-    }
-    return max
-}
-
-fun minOf(numbers: Collection<Number>): Number {
-    if (numbers.isEmpty()) throw IllegalStateException()
-    var min = numbers.first()
-    for (num in numbers) {
-        if (num < min) min = num
-    }
-    return min
-}
-
-fun maxOf(numbers: Collection<Number>): Number {
-    if (numbers.isEmpty()) throw IllegalStateException()
-    var max = numbers.first()
-    for (num in numbers) {
-        if (num > max) max = num
-    }
-    return max
-}
+}.cast()
